@@ -1,15 +1,15 @@
 """MODEL (MVC): entidades de domínio. Sem dependência de banco ou HTTP."""
 from typing import Any
 
-from pydantic import BaseModel, ConfigDict, Field, field_validator
+from pydantic import AliasChoices, BaseModel, ConfigDict, Field, field_validator
 
 
 class MongoModel(BaseModel):
-    """Base: mapeia `_id` do Mongo para `id` string."""
+    """Base: lê `_id` do Mongo (ou `id` do cache) e sempre expõe `id` string."""
 
     model_config = ConfigDict(populate_by_name=True, extra="ignore")
 
-    id: str = Field(default="", alias="_id")
+    id: str = Field(default="", validation_alias=AliasChoices("_id", "id"))
 
     @field_validator("id", mode="before")
     @classmethod
