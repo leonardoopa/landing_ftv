@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 
 const LINKS = [
-  ["#metodo", "Método"],
   ["#aulas", "Aulas"],
+  ["#professor", "Professor"],
   ["#planos", "Planos"],
-  ["#faq", "Dúvidas"],
+  ["#duvidas", "Dúvidas"],
 ];
 
 export default function Header({ site }) {
@@ -18,11 +18,19 @@ export default function Header({ site }) {
 
   return (
     <header className={`header ${solid ? "is-solid" : ""}`}>
-      <a href="#top" className="brand">{site.brand}</a>
+      <a href="#top" className="brand"><Crown />{site.brand}</a>
       <nav className="nav">
         {LINKS.map(([href, label]) => <a key={href} href={href}>{label}</a>)}
       </nav>
-      <a className="btn btn--sm" href="#matricula">Aula experimental</a>
+      <a className="btn btn--sm" href="#planos">{site.cta_label}</a>
     </header>
+  );
+}
+
+export function Crown({ size = 22 }) {
+  return (
+    <svg className="crown" width={size} height={size} viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M3 18h18l1.5-10-5.5 4L12 4 7 12 1.500 8z" fill="currentColor" />
+    </svg>
   );
 }
