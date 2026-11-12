@@ -3,8 +3,9 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { Crown } from "./Header";
 import Icon from "./Icons";
 import Reveal from "./Reveal";
+import Letters from "./Letters";
 
-export default function Teacher({ site, benefits }) {
+export default function Teacher({ site }) {
   const ref = useRef(null);
   const [photoOk, setPhotoOk] = useState(Boolean(site.teacher_photo_url));
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
@@ -24,18 +25,14 @@ export default function Teacher({ site, benefits }) {
       <div className="teacher__copy">
         <Reveal>
           <p className="eyebrow">Quem ensina</p>
-          <h2 className="section-title">{site.teacher_name}</h2>
+          <h2 className="section-title"><Letters inView text={site.teacher_name} /></h2>
           {site.teacher_role && <p className="teacher__role">{site.teacher_role}</p>}
           <p className="section-lead">{site.teacher_bio}</p>
         </Reveal>
-        <ul className="perks">
-          {benefits.map((b, i) => (
-            <Reveal as="li" key={b.id} delay={i * 0.06}>
-              <span className="perks__icon"><Icon name={b.icon} size={22} /></span>
-              <div><strong>{b.title}</strong><p>{b.description}</p></div>
-            </Reveal>
-          ))}
-        </ul>
+        <Reveal className="teacher__cta" delay={0.1}>
+          <a className="btn" href="#planos">{site.cta_label} <Icon name="arrow" size={20} /></a>
+          <a className="btn btn--ghost" href="#aulas">Ver aulas</a>
+        </Reveal>
       </div>
     </section>
   );
