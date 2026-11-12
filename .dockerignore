@@ -6,3 +6,4 @@ frontend/dist
 **/__pycache__
 backend/db
 .venv
+frontend/public/assets/hero-source.*
