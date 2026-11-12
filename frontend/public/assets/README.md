@@ -1,7 +1,9 @@
-Coloque aqui os assets gerados no Higgsfield (ou qualquer outro):
+Assets da landing:
 
-- hero.mp4  — vídeo de fundo do hero (loop, sem áudio, 1080p, ~6-10s)
-- hero.jpg  — poster/imagem de fallback do hero
+- hero.mp4       vídeo do hero, controlado pelo scroll (gerado por scripts/prepare-video.sh)
+- hero.jpg       poster do hero; usado sozinho enquanto não existe hero.mp4
+- professor.jpg  foto do professor
 
-Os caminhos podem ser trocados no admin: /admin > Configuração do site.
-Se o arquivo não existir, o hero usa a arte CSS (sol + ondas + bola).
+Vídeo novo: salve o original como hero-source.mp4 nesta pasta e rode
+`sh scripts/prepare-video.sh` na raiz do projeto. Os caminhos podem ser
+trocados em /admin > Configuração do site.

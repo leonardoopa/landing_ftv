@@ -3,19 +3,18 @@ export const LEVELS = [
   { value: "", label: "Todas" },
   { value: "iniciante", label: "Iniciante" },
   { value: "intermediario", label: "Intermediário" },
-  { value: "avancado", label: "Avançado" },
 ];
 
 export const LEVEL_LABEL = Object.fromEntries(LEVELS.map((l) => [l.value, l.label]));
 
 const COVERS = {
-  Fundamentos: ["#f4d58d", "#d9822b"],
-  Toque: ["#12d6c8", "#0a5c8f"],
-  Defesa: ["#3d7bff", "#12d6c8"],
-  Saque: ["#ff9a3d", "#ff3d6e"],
-  Ataque: ["#ff5a1f", "#ffb347"],
-  "Tática": ["#7c5cff", "#12d6c8"],
-  "Preparação": ["#2ecc71", "#0a5c8f"],
+  Fundamentos: ["#2563ff", "#0b1d5c"],
+  Toque: ["#38bdf8", "#1d4ed8"],
+  Defesa: ["#1e3a8a", "#0ea5e9"],
+  Saque: ["#f5c542", "#b45309"],
+  Ataque: ["#f59e0b", "#1d4ed8"],
+  "Tática": ["#6366f1", "#0b1d5c"],
+  "Preparação": ["#0ea5e9", "#134e4a"],
 };
 const FALLBACK = Object.values(COVERS);
 
@@ -27,5 +26,5 @@ export function coverFor(category = "") {
     for (const c of category) h = (h * 31 + c.charCodeAt(0)) % FALLBACK.length;
     pair = FALLBACK[h];
   }
-  return `linear-gradient(135deg, ${pair[0]}, ${pair[1]})`;
+  return `linear-gradient(140deg, ${pair[0]}, ${pair[1]})`;
 }

@@ -1,23 +1,17 @@
-import { useState } from "react";
-import { motion } from "framer-motion";
+import { useRef, useState } from "react";
 import { useInfiniteLessons } from "../controllers/useInfiniteLessons";
 import { coverFor, LEVELS, LEVEL_LABEL } from "../models/lesson";
 import Icon from "./Icons";
 import Reveal from "./Reveal";
 
 function Card({ lesson, index }) {
+  const cover = lesson.cover_url ? `url(${lesson.cover_url}) center/cover` : coverFor(lesson.category);
   return (
-    <motion.article
-      className="lesson"
-      initial={{ opacity: 0, y: 50 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-40px" }}
-      transition={{ duration: 0.55, delay: (index % 3) * 0.08 }}
-      whileHover={{ y: -8 }}
-    >
-      <div className="lesson__cover" style={{ background: lesson.cover_url ? `url(${lesson.cover_url}) center/cover` : coverFor(lesson.category) }}>
+    <article className="lesson">
+      <div className="lesson__cover" style={{ background: cover }}>
+        <span className="lesson__n">{String(index + 1).padStart(2, "0")}</span>
+        <span className="lesson__play"><Icon name="play" size={18} /></span>
         <span className="lesson__cat">{lesson.category}</span>
-        <span className="lesson__play"><Icon name="play" size={22} /></span>
       </div>
       <div className="lesson__body">
         <div className="lesson__meta">
@@ -27,47 +21,55 @@ function Card({ lesson, index }) {
         <h3>{lesson.title}</h3>
         <p>{lesson.description}</p>
       </div>
-    </motion.article>
+    </article>
   );
 }
 
-export default function Lessons({ site }) {
+// Carrossel horizontal com carregamento infinito: não alonga a página.
+export default function Lessons() {
   const [level, setLevel] = useState("");
-  const { items, loading, done, error, total, sentinelRef, retry } = useInfiniteLessons(level);
+  const railRef = useRef(null);
+  const { items, loading, done, error, total, sentinelRef, retry } = useInfiniteLessons(level, railRef);
+
+  const slide = (dir) => railRef.current?.scrollBy({ left: dir * railRef.current.clientWidth * 0.8, behavior: "smooth" });
+  const pick = (value) => { setLevel(value); railRef.current?.scrollTo({ left: 0 }); };
 
   return (
     <section id="aulas" className="section lessons">
-      <Reveal>
-        <p className="eyebrow">Biblioteca de aulas</p>
-        <h2 className="section-title">Role. Tem muito jogo aqui dentro.</h2>
-        <p className="section-lead">{total ? `${total} aulas` : "Aulas"} organizadas por nível. Continue descendo: elas carregam sozinhas.</p>
+      <Reveal className="lessons__head">
+        <div>
+          <p className="eyebrow">O que você vai aprender</p>
+          <h2 className="section-title">{total ? `${total} aulas.` : "Aulas."} Direto ao ponto.</h2>
+        </div>
+        <div className="lessons__tools">
+          <div className="filters" role="tablist">
+            {LEVELS.map((l) => (
+              <button key={l.value} role="tab" aria-selected={level === l.value}
+                className={`filter ${level === l.value ? "is-on" : ""}`} onClick={() => pick(l.value)}>
+                {l.label}
+              </button>
+            ))}
+          </div>
+          <div className="arrows">
+            <button aria-label="Aulas anteriores" onClick={() => slide(-1)}><Icon name="arrow" size={20} /></button>
+            <button aria-label="Próximas aulas" onClick={() => slide(1)}><Icon name="arrow" size={20} /></button>
+          </div>
+        </div>
       </Reveal>
 
-      <div className="filters" role="tablist">
-        {LEVELS.map((l) => (
-          <button key={l.value} role="tab" aria-selected={level === l.value}
-            className={`filter ${level === l.value ? "is-on" : ""}`} onClick={() => setLevel(l.value)}>
-            {l.label}
-          </button>
-        ))}
-      </div>
-
-      <div className="lessons__grid">
+      <div className="rail" ref={railRef}>
         {items.map((l, i) => <Card key={l.id} lesson={l} index={i} />)}
         {loading && Array.from({ length: 3 }).map((_, i) => <div key={`s${i}`} className="lesson lesson--skeleton" />)}
+        {!done && !error && <div ref={sentinelRef} className="sentinel" aria-hidden="true" />}
+        {done && (
+          <a className="lesson lesson--cta" href="#planos">
+            <strong>Quer todas?</strong>
+            <span>Ver planos <Icon name="arrow" size={18} /></span>
+          </a>
+        )}
       </div>
-
       {error && (
-        <div className="notice">
-          Não foi possível carregar as aulas. <button className="link" onClick={retry}>Tentar de novo</button>
-        </div>
-      )}
-      {!done && !error && <div ref={sentinelRef} className="sentinel" aria-hidden="true" />}
-      {done && (
-        <Reveal className="lessons__end">
-          <p>Você chegou ao fim da lista. Agora é com você, na areia.</p>
-          <a className="btn" href={site.cta_url} target="_blank" rel="noreferrer">{site.cta_label} <Icon name="arrow" size={20} /></a>
-        </Reveal>
+        <p className="notice">Não foi possível carregar as aulas. <button className="link" onClick={retry}>Tentar de novo</button></p>
       )}
     </section>
   );

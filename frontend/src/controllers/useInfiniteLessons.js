@@ -1,10 +1,11 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { api } from "../services/api";
 
-const PAGE = 9;
+const PAGE = 8;
 
-// Scroll infinito: carrega páginas por cursor quando o sentinel entra na tela.
-export function useInfiniteLessons(level) {
+// Carregamento infinito: busca a próxima página quando o sentinel aparece
+// dentro do container rolável (`rootRef`) — aqui, o carrossel horizontal.
+export function useInfiniteLessons(level, rootRef) {
   const [items, setItems] = useState([]);
   const [cursor, setCursor] = useState(0);
   const [done, setDone] = useState(false);
@@ -45,11 +46,11 @@ export function useInfiniteLessons(level) {
     if (!el || error) return;
     const io = new IntersectionObserver(
       (entries) => entries[0].isIntersecting && loadMore(),
-      { rootMargin: "400px" }
+      { root: rootRef?.current ?? null, rootMargin: "300px 600px" }
     );
     io.observe(el);
     return () => io.disconnect();
-  }, [loadMore, error]);
+  }, [loadMore, error, rootRef]);
 
   const retry = () => setError(null);
   return { items, loading, done, error, total, sentinelRef, retry };
