@@ -22,6 +22,11 @@ class MethodStepAdmin(OrderableAdmin):
     list_display = ("title", "tag", "order", "active")
 
 
+@admin.register(models.Fundamental)
+class FundamentalAdmin(OrderableAdmin):
+    list_display = ("title", "tag", "order", "active")
+
+
 @admin.register(models.Benefit)
 class BenefitAdmin(OrderableAdmin):
     list_display = ("title", "icon", "order", "active")

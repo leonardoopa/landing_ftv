@@ -4,7 +4,7 @@ from redis.asyncio import Redis
 
 from app.cache import CacheBackend, RedisCache
 from app.config import Settings
-from app.models import Benefit, Faq, MethodStep, Plan, SiteConfig, Testimonial
+from app.models import Benefit, Faq, Fundamental, MethodStep, Plan, SiteConfig, Testimonial
 from app.repositories import (
     MongoLeadRepository,
     MongoLessonRepository,
@@ -35,6 +35,7 @@ class Container:
             LandingService(
                 MongoSingletonRepository(self.db, "site_config", SiteConfig),
                 MongoListRepository(self.db, "method_steps", MethodStep),
+                MongoListRepository(self.db, "fundamentals", Fundamental),
                 MongoListRepository(self.db, "benefits", Benefit),
                 MongoListRepository(self.db, "plans", Plan),
                 MongoListRepository(self.db, "testimonials", Testimonial),

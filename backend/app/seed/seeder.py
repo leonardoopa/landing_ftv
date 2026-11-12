@@ -46,6 +46,10 @@ async def seed_all(db: AsyncDatabase, whatsapp_number: str) -> None:
         {"title": t, "text": x, "tag": g, "image_url": "", "order": i, "active": True}
         for i, (t, x, g) in enumerate(data.STEPS)
     ])
+    await _seed(db, "fundamentals", [
+        {"title": t, "text": x, "tag": g, "order": i, "active": True}
+        for i, (t, x, g) in enumerate(data.FUNDAMENTALS)
+    ])
     await _seed(db, "benefits", [
         {"title": t, "description": d, "icon": ic, "order": i, "active": True}
         for i, (t, d, ic) in enumerate(data.BENEFITS)

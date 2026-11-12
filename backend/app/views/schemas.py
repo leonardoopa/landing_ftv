@@ -3,12 +3,13 @@ from typing import Optional
 
 from pydantic import BaseModel
 
-from app.models import Benefit, Faq, Lesson, MethodStep, Plan, SiteConfig, Testimonial
+from app.models import Benefit, Faq, Fundamental, Lesson, MethodStep, Plan, SiteConfig, Testimonial
 
 
 class LandingResponse(BaseModel):
     site: SiteConfig
     steps: list[MethodStep]
+    fundamentals: list[Fundamental] = []
     benefits: list[Benefit]
     plans: list[Plan]
     testimonials: list[Testimonial]
