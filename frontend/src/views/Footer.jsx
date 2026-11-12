@@ -5,9 +5,11 @@ import Icon from "./Icons";
 export default function Footer({ site, plan }) {
   const [show, setShow] = useState(false);
   useEffect(() => {
-    // aparece depois da primeira dobra e some enquanto os planos estão na tela
+    // aparece depois do hero e some enquanto os planos estão na tela
     let overPlans = false;
-    const on = () => setShow(!overPlans && window.scrollY > window.innerHeight * 0.8);
+    const hero = document.querySelector(".hero");
+    const start = () => (hero ? hero.offsetHeight - window.innerHeight * 0.4 : window.innerHeight * 0.8);
+    const on = () => setShow(!overPlans && window.scrollY > start());
     const plans = document.querySelector("#planos");
     const io = new IntersectionObserver(([e]) => { overPlans = e.isIntersecting; on(); }, { threshold: 0.15 });
     if (plans) io.observe(plans);
@@ -18,6 +20,7 @@ export default function Footer({ site, plan }) {
 
   return (
     <footer className="footer">
+      <div className="footer__big" aria-hidden="true">{site.brand}</div>
       <div className="footer__row">
         <span className="brand"><Crown />{site.brand}</span>
         <p>© {new Date().getFullYear()} {site.brand}</p>

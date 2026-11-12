@@ -10,7 +10,7 @@ from . import models
 
 log = logging.getLogger(__name__)
 CONTENT_MODELS = (
-    models.SiteConfig, models.MethodStep, models.Benefit, models.Plan,
+    models.SiteConfig, models.MethodStep, models.Fundamental, models.Benefit, models.Plan,
     models.Testimonial, models.Faq, models.Lesson,
 )
 

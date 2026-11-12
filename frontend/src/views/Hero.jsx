@@ -2,6 +2,7 @@ import { useRef, useState } from "react";
 import { AnimatePresence, motion, useMotionValueEvent, useScroll, useSpring, useTransform } from "framer-motion";
 import { useScrubVideo } from "../controllers/useScrubVideo";
 import Icon from "./Icons";
+import Letters from "./Letters";
 import Ticker from "./Ticker";
 
 const INTRO = 0.16; // fração do scroll em que o título fica na tela
@@ -28,7 +29,6 @@ export default function Hero({ site, steps }) {
   const glowY = useTransform(scrollYProgress, [0, 1], ["-10%", "30%"]);
 
   const step = phase > 0 ? steps[phase - 1] : null;
-  const words = (site.hero_title || "").split(" ");
 
   return (
     <section ref={ref} id="top" className="hero" style={{ height: `${140 + steps.length * 40}vh` }}>
@@ -49,23 +49,14 @@ export default function Hero({ site, steps }) {
                   initial={{ opacity: 0, y: 36 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -36 }}
                   transition={{ duration: 0.35 }}>
                   <span className="hero__num">{String(phase).padStart(2, "0")}<small>/{String(steps.length).padStart(2, "0")}</small></span>
-                  <h2 className="hero__title hero__title--step">{step.title}</h2>
+                  <h2 className="hero__title hero__title--step"><Letters text={step.title} /></h2>
                   <p className="hero__sub">{step.text}</p>
                 </motion.div>
               ) : (
                 <motion.div key="intro"
                   initial={{ opacity: 0, y: 36 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -36 }}
                   transition={{ duration: 0.35 }}>
-                  <h1 className="hero__title">
-                    {words.map((w, i) => (
-                      <span className="word" key={i}>
-                        <motion.span initial={{ y: "110%" }} animate={{ y: 0 }}
-                          transition={{ duration: 0.8, delay: 0.15 + i * 0.08, ease: [0.22, 1, 0.36, 1] }}>
-                          {w}&nbsp;
-                        </motion.span>
-                      </span>
-                    ))}
-                  </h1>
+                  <h1 className="hero__title"><Letters text={site.hero_title} delay={0.15} /></h1>
                   <p className="hero__sub">{site.hero_subtitle}</p>
                 </motion.div>
               )}

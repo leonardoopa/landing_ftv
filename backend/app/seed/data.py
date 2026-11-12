@@ -34,11 +34,23 @@ STEPS = [
     ("Chapa e cortada", "Ataque colocado e leitura de jogo. É aqui que o ponto nasce.", "Passo 4"),
 ]
 
+# Cartões da seção "fundamentos" (rolagem horizontal presa ao scroll).
+FUNDAMENTALS = [
+    ("Toque", "Peito do pé, coxa, peito e cabeça. Controle antes de força.", "Controle"),
+    ("Recepção", "Amortecer o saque e entregar a bola redonda para o parceiro.", "Defesa"),
+    ("Saque", "Do saque por baixo ao saque viagem. Consistência primeiro.", "Início do ponto"),
+    ("Levantada", "Altura e distância certas para a dupla atacar.", "Dupla"),
+    ("Chapa", "Ataque firme e colocado, longe da defesa.", "Ataque"),
+    ("Cortada", "Salto, tempo de bola e acerto para fechar o ponto.", "Ataque"),
+]
+
 BENEFITS = [
     ("Aulas de 5 a 10 minutos", "Curtas e diretas. Cabe na rotina, sem enrolação.", "clock"),
     ("Do zero ao intermediário", "Começa pela base e avança no seu ritmo.", "stairs"),
     ("Correção de erros comuns", "O erro, a causa e o ajuste. Sem repetir vício.", "target"),
     ("Assista onde quiser", "Celular, tablet ou TV, antes de ir pra areia.", "phone"),
+    ("Acesso vitalício", "Pagou uma vez, é seu. Reveja quantas vezes quiser.", "ball"),
+    ("Do vídeo para a areia", "No Premium você aplica tudo em uma aula presencial na Royal.", "people"),
 ]
 
 PLANS = [

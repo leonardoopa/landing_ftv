@@ -56,6 +56,20 @@ class MethodStep(Orderable):
         return self.title
 
 
+class Fundamental(Orderable):
+    title = models.CharField("título", max_length=60)
+    text = models.TextField("texto")
+    tag = models.CharField("etiqueta", max_length=40, blank=True)
+
+    class Meta(Orderable.Meta):
+        db_table = "fundamentals"
+        verbose_name = "fundamento"
+        verbose_name_plural = "fundamentos"
+
+    def __str__(self):
+        return self.title
+
+
 class Benefit(Orderable):
     title = models.CharField("título", max_length=100)
     description = models.TextField("descrição")

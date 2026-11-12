@@ -3,6 +3,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import Icon from "./Icons";
 import LeadForm from "./LeadForm";
 import Reveal from "./Reveal";
+import Letters from "./Letters";
 
 // Fechamento: dúvidas + contato lado a lado (uma seção só).
 export default function Faq({ faqs }) {
@@ -11,7 +12,7 @@ export default function Faq({ faqs }) {
     <section id="duvidas" className="section closing">
       <Reveal className="closing__faq">
         <p className="eyebrow">Dúvidas</p>
-        <h2 className="section-title">Rápido e claro.</h2>
+        <h2 className="section-title"><Letters inView text="Rápido e claro." /></h2>
         <div className="faq__list">
           {faqs.map((f, i) => (
             <div key={f.id} className={`faq__item ${open === i ? "is-open" : ""}`}>

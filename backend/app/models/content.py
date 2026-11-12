@@ -44,6 +44,13 @@ class MethodStep(MongoModel):
     order: int = 0
 
 
+class Fundamental(MongoModel):
+    title: str
+    text: str
+    tag: str = ""
+    order: int = 0
+
+
 class Benefit(MongoModel):
     title: str
     description: str
