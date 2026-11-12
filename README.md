@@ -55,16 +55,28 @@ frontend/src/
 | Rota | Descrição |
 |---|---|
 | `GET /api/landing` | Todo o conteúdo da página (cacheado) |
-| `GET /api/lessons?cursor=0&limit=9&level=` | Página de aulas para o scroll infinito |
+| `GET /api/lessons?cursor=0&limit=9&level=` | Página de aulas para o carrossel com carregamento infinito |
 | `POST /api/leads` | Cadastro do formulário (limite de `LEAD_RATE_LIMIT` por `LEAD_RATE_WINDOW` segundos, por IP) |
 | `GET /api/health` | Healthcheck |
 
 Salvar qualquer conteúdo no admin limpa o cache do Redis na hora.
 
-## Assets (Higgsfield)
+## Assets
 
-Coloque `hero.mp4` e `hero.jpg` em `frontend/public/assets/` e rode `docker compose up -d --build`.
-Sem esses arquivos o hero usa a arte em CSS (sol, ondas e bola). Capas de aulas e fotos de depoimentos aceitam URL pelo admin.
+Ficam em `frontend/public/assets/`:
+
+- `hero.mp4`: vídeo do hero. Avança frame a frame conforme o scroll.
+- `hero.jpg`: poster. Aparece sozinho (com zoom no scroll) enquanto não existe `hero.mp4`.
+- `professor.jpg`: foto do professor.
+
+Para preparar o vídeo, salve o original como `frontend/public/assets/hero-source.mp4` e rode:
+
+```bash
+sh scripts/prepare-video.sh
+docker compose up -d --build
+```
+
+O script (ffmpeg via Docker) remove o áudio e grava todo frame como keyframe, o que deixa o avanço pelo scroll fluido.
 
 ## Desenvolvimento do frontend
 
