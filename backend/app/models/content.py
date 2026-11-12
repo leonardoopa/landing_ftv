@@ -18,18 +18,22 @@ class MongoModel(BaseModel):
 
 
 class SiteConfig(MongoModel):
-    brand: str = "Areia Futevôlei"
+    brand: str = "Royal Futevôlei"
     hero_eyebrow: str = ""
     hero_title: str = ""
     hero_subtitle: str = ""
     hero_video_url: str = ""
     hero_image_url: str = ""
-    cta_label: str = "Quero minha aula experimental"
+    cta_label: str = "Ver planos"
     cta_url: str = ""
     whatsapp: str = ""
     instagram: str = ""
     stats: list[dict[str, str]] = Field(default_factory=list)
     marquee: list[str] = Field(default_factory=list)
+    teacher_name: str = ""
+    teacher_role: str = ""
+    teacher_bio: str = ""
+    teacher_photo_url: str = ""
 
 
 class MethodStep(MongoModel):
@@ -50,6 +54,7 @@ class Benefit(MongoModel):
 class Plan(MongoModel):
     name: str
     badge: str = ""
+    proof: str = ""
     price_from: str = ""
     price: str
     installments: str = ""

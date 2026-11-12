@@ -29,7 +29,7 @@ class BenefitAdmin(OrderableAdmin):
 
 @admin.register(models.Plan)
 class PlanAdmin(OrderableAdmin):
-    list_display = ("name", "price", "highlight", "order", "active")
+    list_display = ("name", "price", "proof", "highlight", "order", "active")
 
 
 @admin.register(models.Testimonial)

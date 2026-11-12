@@ -13,7 +13,7 @@ class Orderable(models.Model):
 
 
 class SiteConfig(models.Model):
-    brand = models.CharField("marca", max_length=80, default="Areia Futevôlei")
+    brand = models.CharField("marca", max_length=80, default="Royal Futevôlei")
     hero_eyebrow = models.CharField("hero: linha pequena", max_length=160, blank=True)
     hero_title = models.CharField("hero: título", max_length=200, blank=True)
     hero_subtitle = models.TextField("hero: subtítulo", blank=True)
@@ -27,6 +27,10 @@ class SiteConfig(models.Model):
                              help_text='Ex.: [{"value": "30", "label": "videoaulas"}]')
     marquee = ArrayField(models.CharField(max_length=40), verbose_name="faixa em loop",
                          default=list, blank=True, help_text="Palavras separadas por vírgula")
+    teacher_name = models.CharField("professor: nome", max_length=80, blank=True)
+    teacher_role = models.CharField("professor: título", max_length=120, blank=True)
+    teacher_bio = models.TextField("professor: bio", blank=True)
+    teacher_photo_url = models.CharField("professor: foto", max_length=300, blank=True)
 
     class Meta:
         db_table = "site_config"
@@ -70,6 +74,7 @@ class Benefit(Orderable):
 class Plan(Orderable):
     name = models.CharField("nome", max_length=60)
     badge = models.CharField("selo", max_length=40, blank=True)
+    proof = models.CharField("prova social", max_length=80, blank=True, help_text="Ex.: +200 vendas")
     price_from = models.CharField("preço 'de'", max_length=30, blank=True)
     price = models.CharField("preço", max_length=30)
     installments = models.CharField("parcelamento", max_length=80, blank=True)
@@ -117,7 +122,7 @@ class Faq(Orderable):
 
 
 class Lesson(Orderable):
-    LEVELS = [("iniciante", "Iniciante"), ("intermediario", "Intermediário"), ("avancado", "Avançado")]
+    LEVELS = [("iniciante", "Iniciante"), ("intermediario", "Intermediário")]
 
     title = models.CharField("título", max_length=120)
     category = models.CharField("categoria", max_length=40)
@@ -129,7 +134,7 @@ class Lesson(Orderable):
     class Meta(Orderable.Meta):
         db_table = "lessons"
         verbose_name = "aula"
-        verbose_name_plural = "aulas (scroll infinito)"
+        verbose_name_plural = "aulas (carrossel infinito)"
 
     def __str__(self):
         return self.title

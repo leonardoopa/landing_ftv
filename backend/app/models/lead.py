@@ -4,7 +4,7 @@ from typing import Literal, Optional
 
 from pydantic import BaseModel, EmailStr, Field, field_validator
 
-Level = Literal["iniciante", "intermediario", "avancado"]
+Level = Literal["iniciante", "intermediario"]
 
 
 class LeadCreate(BaseModel):

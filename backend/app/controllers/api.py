@@ -48,7 +48,7 @@ async def get_landing(svc: LandingProvider = Depends(landing_service)):
 async def get_lessons(
     cursor: int = Query(0, ge=0),
     limit: int = Query(9, ge=1, le=30),
-    level: Optional[str] = Query(None, pattern="^(iniciante|intermediario|avancado)$"),
+    level: Optional[str] = Query(None, pattern="^(iniciante|intermediario)$"),
     svc: LessonProvider = Depends(lesson_service),
 ):
     return await svc.get_page(cursor, limit, level)
