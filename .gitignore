@@ -6,3 +6,4 @@ frontend/dist/
 backend/db/
 .venv/
 .DS_Store
+venv/
