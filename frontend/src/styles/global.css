@@ -67,9 +67,10 @@ img, video { display: block; max-width: 100%; }
 .hero__swap > div { width: 100%; }
 .hero__title { font-family: var(--display); font-weight: 400; text-transform: uppercase; font-size: clamp(3rem, 7.4vw, 7.2rem); line-height: 0.94; margin-bottom: 18px; }
 .hero__title--step { font-size: clamp(2.8rem, 6.4vw, 6.2rem); color: var(--text); }
-.word { display: inline-block; overflow: hidden; vertical-align: top; }
+.letters { display: inline; }
+.word { display: inline-block; overflow: hidden; vertical-align: top; white-space: nowrap; margin-right: 0.24em; padding-top: 0.14em; margin-top: -0.14em; }
 .word > span { display: inline-block; }
-.word:nth-child(n + 4) { color: var(--blue-2); }
+.hero__title:not(.hero__title--step) .word:nth-child(n + 4) { color: var(--blue-2); }
 .hero__num { display: inline-block; font-family: var(--display); font-size: clamp(1.6rem, 3vw, 2.4rem); color: var(--gold); margin-bottom: 6px; }
 .hero__num small { color: var(--muted); font-size: 0.6em; margin-left: 4px; }
 .hero__sub { max-width: 44ch; font-size: clamp(1.02rem, 1.6vw, 1.25rem); color: #d7def2; }
@@ -88,6 +89,49 @@ img, video { display: block; max-width: 100%; }
 .hero__hint { position: absolute; left: 16px; bottom: 16px; display: inline-flex; align-items: center; gap: 8px; font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: #fff; }
 .hero__hint i { width: 8px; height: 8px; border-radius: 50%; background: var(--gold); animation: blink 1.4s ease-in-out infinite; }
 @keyframes blink { 50% { opacity: 0.25; transform: scale(0.7); } }
+
+/* frases que surgem no scroll + manifesto que acende */
+.pains__scroll { height: 150vh; position: relative; }
+.pains__stage { position: sticky; top: 0; height: 100vh; height: 100svh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; gap: 6px; padding: calc(var(--header) + 12px) var(--pad) 24px; overflow: hidden; }
+.pains__stage .section-title { max-width: 16ch; }
+.pains__cloud { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px 16px; max-width: 880px; margin-top: clamp(24px, 5vh, 48px); }
+.pain { font-weight: 600; font-size: clamp(1.05rem, 2.1vw, 1.6rem); line-height: 1.2; padding: 14px 26px; border-radius: 22px; border: 1px solid rgba(255, 255, 255, 0.22); background: rgba(255, 255, 255, 0.04); backdrop-filter: blur(6px); will-change: transform, opacity; }
+.pain:nth-child(odd) { rotate: -1.5deg; }
+.pain:nth-child(even) { rotate: 1.5deg; border-color: rgba(245, 197, 66, 0.5); color: var(--gold); }
+.manifesto { font-family: var(--display); font-weight: 400; text-transform: uppercase; font-size: clamp(1.7rem, 4vw, 3.2rem); line-height: 1.15; max-width: 1000px; margin: 0 auto; padding: clamp(24px, 6vw, 72px) var(--pad) clamp(64px, 10vw, 128px); text-wrap: balance; text-align: center; }
+
+/* fundamentos: rolagem horizontal presa */
+.funds { position: relative; }
+.funds__stage { position: sticky; top: 0; height: 100vh; height: 100svh; display: flex; flex-direction: column; justify-content: center; gap: clamp(20px, 4vh, 40px); padding: calc(var(--header) + 16px) 0 28px; overflow: hidden; }
+.funds__head { padding: 0 var(--pad); max-width: 1240px; width: 100%; margin: 0 auto; }
+.funds__viewport { padding: 0 var(--pad); }
+.funds__track { display: flex; gap: 18px; width: max-content; will-change: transform; }
+.fund { position: relative; flex: 0 0 clamp(250px, 30vw, 380px); height: clamp(280px, 46vh, 400px); display: flex; flex-direction: column; justify-content: flex-end; padding: 26px; border-radius: 28px; border: 1px solid var(--line); background: linear-gradient(170deg, #12205a, var(--card) 62%); overflow: hidden; }
+.fund:nth-child(3n + 2) { background: linear-gradient(170deg, #1d3fb8, var(--card) 70%); }
+.fund:nth-child(3n) { background: linear-gradient(170deg, #5a4308, var(--card) 62%); border-color: rgba(245, 197, 66, 0.35); }
+.fund__n { position: absolute; top: 4px; right: 18px; font-family: var(--display); font-size: clamp(6rem, 13vw, 10rem); line-height: 1; color: rgba(255, 255, 255, 0.08); }
+.fund__tag { align-self: flex-start; padding: 4px 12px; border-radius: 99px; border: 1px solid var(--gold); color: var(--gold); font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 12px; }
+.fund h3 { font-family: var(--display); font-weight: 400; text-transform: uppercase; font-size: clamp(2.2rem, 4.4vw, 3.4rem); line-height: 1; margin-bottom: 8px; }
+.fund p { color: #d7def2; max-width: 30ch; }
+.funds__bar { margin: 0 var(--pad); height: 3px; border-radius: 3px; background: var(--line); }
+.funds__bar span { display: block; height: 100%; border-radius: 3px; background: var(--gold); transform-origin: 0 50%; }
+
+/* benefícios */
+.benefits { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-top: 36px; }
+.benefit { padding: 26px; border-radius: 22px; border: 1px solid var(--line); background: linear-gradient(160deg, var(--card), transparent); transition: border-color 0.3s, transform 0.3s; height: 100%; }
+.benefit:hover { border-color: rgba(245, 197, 66, 0.5); transform: translateY(-4px); }
+.benefit__icon { display: grid; place-items: center; width: 52px; height: 52px; border-radius: 14px; background: rgba(37, 99, 255, 0.18); color: var(--blue-2); margin-bottom: 16px; }
+.benefit h3 { font-size: 1.15rem; margin-bottom: 6px; }
+.benefit p { color: var(--muted); font-size: 0.95rem; }
+
+/* como funciona: linha do tempo */
+.how__list { position: relative; margin-top: 40px; display: flex; flex-direction: column; gap: clamp(28px, 5vw, 52px); padding-left: 76px; max-width: 760px; }
+.how__line { position: absolute; left: 25px; top: 8px; bottom: 8px; width: 3px; border-radius: 3px; background: var(--line); }
+.how__line i { display: block; width: 100%; height: 100%; border-radius: 3px; background: linear-gradient(var(--blue-2), var(--gold)); transform-origin: 50% 0; }
+.how__item { position: relative; }
+.how__dot { position: absolute; left: -76px; top: -4px; width: 53px; height: 53px; border-radius: 50%; display: grid; place-items: center; background: var(--bg); border: 2px solid var(--gold); color: var(--gold); font-family: var(--display); font-size: 1.4rem; }
+.how__item h3 { font-family: var(--display); font-weight: 400; text-transform: uppercase; font-size: clamp(1.5rem, 3vw, 2.1rem); line-height: 1.1; }
+.how__item p { color: var(--muted); margin-top: 6px; font-size: 1.02rem; }
 
 /* aulas: carrossel infinito */
 .lessons__head { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; flex-wrap: wrap; margin-bottom: 26px; }
@@ -132,11 +176,7 @@ img, video { display: block; max-width: 100%; }
 .teacher__tag { position: absolute; left: 50%; bottom: -14px; transform: translateX(-50%); display: inline-flex; align-items: center; gap: 8px; white-space: nowrap; background: var(--gold); color: #1a1300; font-weight: 700; font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 8px 16px; border-radius: 99px; }
 .teacher__tag .crown { color: #1a1300; }
 .teacher__role { color: var(--blue-2); font-weight: 600; margin-top: 8px; }
-.perks { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 28px; }
-.perks li { display: flex; gap: 12px; padding: 16px; border-radius: 18px; border: 1px solid var(--line); background: var(--card); }
-.perks__icon { flex: none; display: grid; place-items: center; width: 42px; height: 42px; border-radius: 12px; background: rgba(37, 99, 255, 0.18); color: var(--blue-2); }
-.perks strong { display: block; font-size: 0.98rem; }
-.perks p { color: var(--muted); font-size: 0.86rem; }
+.teacher__cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 26px; }
 
 /* planos */
 .plans__head { text-align: center; }
@@ -176,6 +216,7 @@ img, video { display: block; max-width: 100%; }
 
 /* footer + barra fixa de compra */
 .footer { border-top: 1px solid var(--line); padding: 28px var(--pad) 96px; }
+.footer__big { font-family: var(--display); text-transform: uppercase; font-size: clamp(3rem, 13.5vw, 12rem); line-height: 1.3; text-align: center; white-space: nowrap; background: linear-gradient(180deg, var(--blue-2), transparent 92%); -webkit-background-clip: text; background-clip: text; color: transparent; margin-bottom: 12px; }
 .footer__row { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; color: var(--muted); font-size: 0.86rem; max-width: 1240px; margin: 0 auto; }
 .footer__row .brand { color: var(--text); font-size: 1.1rem; }
 .footer__row a:hover { color: var(--text); }
@@ -202,9 +243,13 @@ img, video { display: block; max-width: 100%; }
   .hero__hint { display: none; }
   .hero__swap { min-height: 210px; align-items: flex-end; }
   .hero__cta .btn { flex: 1; padding-inline: 16px; }
+  .hero__stats { gap: 18px; }
+  .pain { padding: 11px 18px; border-radius: 18px; }
   .teacher, .closing { grid-template-columns: 1fr; }
   .teacher__photo { width: min(78%, 320px); }
   .plans__grid { grid-template-columns: 1fr; }
+  .benefits { grid-template-columns: 1fr 1fr; }
+  .fund { flex-basis: 74vw; }
   .plan--hl { order: -1; }
   .dock { left: 12px; right: 78px; transform: translateY(140%); justify-content: space-between; gap: 8px; padding: 8px 8px 8px 16px; font-size: 0.88rem; }
   .dock .btn { padding: 9px 14px; font-size: 0.82rem; }
@@ -212,9 +257,8 @@ img, video { display: block; max-width: 100%; }
   .dock small { display: none; }
 }
 @media (max-width: 520px) {
-  .perks { grid-template-columns: 1fr; }
   .arrows { display: none; }
-  .hero__stats { gap: 18px; }
+  .benefits { grid-template-columns: 1fr; }
 }
 
 @media (prefers-reduced-motion: reduce) {
