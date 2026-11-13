@@ -27,3 +27,7 @@ class LessonRepository(ABC):
 class LeadRepository(ABC):
     @abstractmethod
     async def add(self, lead: Lead) -> str: ...
+
+    async def ensure_indexes(self) -> None:
+        """Hook opcional para criar índices. Padrão: nada."""
+        return None

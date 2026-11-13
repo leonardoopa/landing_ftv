@@ -1,6 +1,8 @@
 """Implementações MongoDB (pymongo async) das interfaces de repositório."""
+import logging
 from typing import Generic, Optional, Type, TypeVar
 
+from pymongo import ReturnDocument
 from pymongo.asynchronous.database import AsyncDatabase
 
 from app.models import Lead, Lesson
@@ -52,8 +54,20 @@ class MongoLeadRepository(LeadRepository):
     def __init__(self, db: AsyncDatabase):
         self._col = db["leads"]
 
+    async def ensure_indexes(self) -> None:
+        try:
+            await self._col.create_index("whatsapp", unique=True)
+        except Exception as exc:  # duplicatas antigas impedem o índice único
+            logging.getLogger(__name__).warning("índice único de leads não criado: %s", exc)
+
     async def add(self, lead: Lead) -> str:
+        """Idempotente por WhatsApp: repetir o cadastro devolve o id existente."""
         data = lead.model_dump(mode="python")
         data["email"] = str(data["email"]) if data.get("email") else ""
-        result = await self._col.insert_one(data)
-        return str(result.inserted_id)
+        doc = await self._col.find_one_and_update(
+            {"whatsapp": data["whatsapp"]},
+            {"$setOnInsert": data},
+            upsert=True,
+            return_document=ReturnDocument.AFTER,
+        )
+        return str(doc["_id"])

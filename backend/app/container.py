@@ -49,8 +49,9 @@ class Container:
             self.cache,
             settings.cache_ttl,
         )
+        self.lead_repo = MongoLeadRepository(self.db)
         self.leads = LeadService(
-            MongoLeadRepository(self.db),
+            self.lead_repo,
             RateLimiter(self.cache, settings.lead_rate_limit, settings.lead_rate_window),
         )
 
