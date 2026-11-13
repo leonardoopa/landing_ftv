@@ -5,6 +5,12 @@ export const LEVELS = [
   { value: "intermediario", label: "Intermediário" },
 ];
 
+// Níveis reais (abas da história de scroll), com a promessa de cada um.
+export const LEVEL_TABS = [
+  { value: "iniciante", label: "Iniciante", text: "Do zero: postura, toque, recepção e saque." },
+  { value: "intermediario", label: "Intermediário", text: "Ataque, defesa e tática para ganhar jogos." },
+];
+
 export const LEVEL_LABEL = Object.fromEntries(LEVELS.map((l) => [l.value, l.label]));
 
 const COVERS = {

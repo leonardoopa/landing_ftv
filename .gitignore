@@ -8,3 +8,10 @@ backend/db/
 .DS_Store
 venv/
 frontend/public/assets/hero-source.*
+
+# Graphify
+graphify-out/cache/
+graphify-out/.graphify_python
+graphify-out/graph.html
+graphify-out/cost.json
+qa-output/

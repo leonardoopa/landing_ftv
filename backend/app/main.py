@@ -24,6 +24,7 @@ async def lifespan(app: FastAPI):
     container = Container(settings)
     app.state.container = container
     await seed_all(container.db, settings.whatsapp_number)
+    await container.lead_repo.ensure_indexes()
     yield
     await container.close()
 

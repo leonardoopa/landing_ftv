@@ -4,7 +4,7 @@ import { coverFor, LEVELS, LEVEL_LABEL } from "../models/lesson";
 import Icon from "./Icons";
 import Reveal from "./Reveal";
 
-function Card({ lesson, index }) {
+export function Card({ lesson, index }) {
   const cover = lesson.cover_url ? `url(${lesson.cover_url}) center/cover` : coverFor(lesson.category);
   return (
     <article className="lesson">

@@ -28,9 +28,8 @@ def lead_service(c: Container = Depends(_container)) -> LeadService:
 
 
 def _client_key(request: Request) -> str:
-    fwd = request.headers.get("x-forwarded-for")
-    if fwd:
-        return fwd.split(",")[0].strip()
+    # Não lê X-Forwarded-For direto (spoofável). Atrás de proxy, o uvicorn já
+    # reescreve client.host para os IPs listados em FORWARDED_ALLOW_IPS.
     return request.client.host if request.client else "unknown"
 
 

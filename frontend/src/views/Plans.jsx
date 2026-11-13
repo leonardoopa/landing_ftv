@@ -2,6 +2,28 @@ import Icon from "./Icons";
 import Reveal from "./Reveal";
 import Letters from "./Letters";
 
+export function PlanCard({ plan: p }) {
+  return (
+    <>
+      {p.badge && <span className="plan__badge">{p.badge}</span>}
+      <h3>{p.name}</h3>
+      <div className="plan__price">
+        {p.price_from && <s>{p.price_from}</s>}
+        <strong>{p.price}</strong>
+        <small>{p.installments}</small>
+      </div>
+      {p.proof && <p className="plan__proof"><i />{p.proof}</p>}
+      <ul>
+        {p.features.map((f) => <li key={f}><Icon name="check" size={18} />{f}</li>)}
+      </ul>
+      <a className={`btn ${p.highlight ? "" : "btn--ghost"}`} href={p.cta_url} target="_blank" rel="noreferrer">
+        {p.cta_label} <Icon name="arrow" size={18} />
+      </a>
+    </>
+  );
+}
+
+// Versão empilhada (celular / movimento reduzido).
 export default function Plans({ plans }) {
   return (
     <section id="planos" className="section plans">
@@ -13,20 +35,7 @@ export default function Plans({ plans }) {
       <div className="plans__grid">
         {plans.map((p, i) => (
           <Reveal key={p.id} delay={i * 0.08} className={`plan ${p.highlight ? "plan--hl" : ""}`}>
-            {p.badge && <span className="plan__badge">{p.badge}</span>}
-            <h3>{p.name}</h3>
-            <div className="plan__price">
-              {p.price_from && <s>{p.price_from}</s>}
-              <strong>{p.price}</strong>
-              <small>{p.installments}</small>
-            </div>
-            {p.proof && <p className="plan__proof"><i />{p.proof}</p>}
-            <ul>
-              {p.features.map((f) => <li key={f}><Icon name="check" size={18} />{f}</li>)}
-            </ul>
-            <a className={`btn ${p.highlight ? "" : "btn--ghost"}`} href={p.cta_url} target="_blank" rel="noreferrer">
-              {p.cta_label} <Icon name="arrow" size={18} />
-            </a>
+            <PlanCard plan={p} />
           </Reveal>
         ))}
       </div>
