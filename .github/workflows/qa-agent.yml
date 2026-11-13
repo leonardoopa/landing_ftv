@@ -1,0 +1,82 @@
+name: QA Agent
+
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened, ready_for_review]
+
+# Um run por PR; push novo cancela o anterior.
+concurrency:
+  group: qa-agent-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  qa:
+    # Ignora PR de fork (sem acesso a secrets) e draft.
+    if: github.event.pull_request.head.repo.full_name == github.repository && !github.event.pull_request.draft
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Preparar .env
+        run: cp .env.example .env
+
+      - name: Subir app
+        run: docker compose up -d --build
+
+      - name: Esperar health
+        run: |
+          for i in $(seq 1 60); do
+            curl -fsS http://localhost:8000/api/health && exit 0
+            sleep 3
+          done
+          docker compose logs app
+          exit 1
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Instalar Chromium do Playwright
+        run: npx -y playwright@latest install --with-deps chromium
+
+      - name: Rodar agente Claude
+        uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          prompt: "Leia .github/qa-agent-prompt.md e execute todas as instruções dele. PR #${{ github.event.pull_request.number }}."
+          claude_args: |
+            --max-turns 60
+            --mcp-config .github/qa-mcp.json
+            --allowedTools "Bash,Read,Write,Glob,Grep,mcp__playwright__*"
+
+      - name: Postar relatório no PR
+        if: always()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if [ -f qa-output/report.md ]; then
+            gh pr comment ${{ github.event.pull_request.number }} --body-file qa-output/report.md
+          else
+            gh pr comment ${{ github.event.pull_request.number }} --body "QA Agent não gerou relatório. Veja os logs do workflow."
+          fi
+
+      - name: Anexar screenshots e relatório
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: qa-output
+          path: qa-output/
+          if-no-files-found: ignore
+
+      - name: Derrubar app
+        if: always()
+        run: docker compose down -v

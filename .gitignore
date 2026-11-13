@@ -14,3 +14,4 @@ graphify-out/cache/
 graphify-out/.graphify_python
 graphify-out/graph.html
 graphify-out/cost.json
+qa-output/
