@@ -6,7 +6,7 @@ LESSONS = [
     ("Deslocamento na areia", "Fundamentos", "iniciante", "Como andar, correr e frear sem cansar a perna.", 6),
     ("Domínio de bola com o pé", "Toque", "iniciante", "Primeiro contato: amortecer e controlar a bola.", 7),
     ("Toque de peito de pé", "Toque", "iniciante", "A superfície mais usada do jogo. Controle, altura e direção.", 8),
-    ("Toque com a coxa", "Toque", "iniciante", "Segurar e redirecionar bolas mais baixas.", 6),
+    ("Toque com o ombro", "Toque", "iniciante", "Segurar e redirecionar bolas mais baixas.", 6),
     ("Toque de cabeça", "Toque", "iniciante", "Cabeceio para passar a bola com segurança.", 7),
     ("Recepção de peito", "Defesa", "iniciante", "Amortecer a bola no peito e deixar pronta para o parceiro.", 7),
     ("Recepção de saque", "Defesa", "iniciante", "Ler a bola do saque e entregar redonda.", 8),
@@ -15,7 +15,7 @@ LESSONS = [
     ("Troca de bola em dupla", "Fundamentos", "iniciante", "Ritmo: 20 toques seguidos sem deixar cair.", 9),
     ("Leitura de jogo em dupla", "Tática", "iniciante", "Quem pega o quê? Cobertura de quadra no 2x2.", 10),
     ("Chapa na rede", "Ataque", "intermediario", "Ataque de chapa, firme e colocado.", 8),
-    ("Cortada de pé", "Ataque", "intermediario", "Salto, tempo de bola e acerto.", 10),
+    ("Ataque de pé", "Ataque", "intermediario", "Salto, tempo de bola e acerto.", 10),
     ("Saque viagem", "Saque", "intermediario", "Saque com efeito que complica a recepção.", 8),
     ("Defesa de ataque forte", "Defesa", "intermediario", "Posicionamento e reação para bolas rápidas.", 9),
     ("Peixinho de defesa", "Defesa", "intermediario", "Mergulho controlado, sem se machucar.", 7),
@@ -29,19 +29,19 @@ LESSONS = [
 # Legendas que acompanham o vídeo do hero enquanto a página rola.
 STEPS = [
     ("Base e postura", "Sem base, nada se sustenta. Posição, deslocamento e equilíbrio na areia.", "Passo 1"),
-    ("Toque e controle", "Pé, peito, coxa e cabeça. A bola obedece quando você entende a superfície.", "Passo 2"),
+    ("Toque e controle", "Pé, peito, ombro e cabeça. A bola obedece quando você entende a superfície.", "Passo 2"),
     ("Defesa e saque", "Receba, defenda e coloque a bola em jogo com consistência.", "Passo 3"),
-    ("Chapa e cortada", "Ataque colocado e leitura de jogo. É aqui que o ponto nasce.", "Passo 4"),
+    ("Chapa e ataque", "Ataque colocado e leitura de jogo. É aqui que o ponto nasce.", "Passo 4"),
 ]
 
 # Cartões da seção "fundamentos" (rolagem horizontal presa ao scroll).
 FUNDAMENTALS = [
-    ("Toque", "Peito do pé, coxa, peito e cabeça. Controle antes de força.", "Controle"),
+    ("Toque", "Peito do pé, ombro, peito e cabeça. Controle antes de força.", "Controle"),
     ("Recepção", "Amortecer o saque e entregar a bola redonda para o parceiro.", "Defesa"),
     ("Saque", "Do saque por baixo ao saque viagem. Consistência primeiro.", "Início do ponto"),
     ("Levantada", "Altura e distância certas para a dupla atacar.", "Dupla"),
     ("Chapa", "Ataque firme e colocado, longe da defesa.", "Ataque"),
-    ("Cortada", "Salto, tempo de bola e acerto para fechar o ponto.", "Ataque"),
+    ("Ataque", "Salto, tempo de bola e acerto para fechar o ponto.", "Ataque"),
 ]
 
 BENEFITS = [
@@ -55,20 +55,20 @@ BENEFITS = [
 
 PLANS = [
     {
-        "name": "Essencial", "badge": "", "proof": "", "price_from": "", "price": "R$ 35,00",
+        "name": "Essencial", "badge": "", "proof": "", "price_from": "", "price": "R$ 27,90",
         "installments": "Fundamentos para começar",
         "features": ["Videoaulas do nível iniciante", "Aulas de 5 a 10 minutos", "Acesso vitalício"],
         "highlight": False, "cta_label": "Quero o Essencial",
     },
     {
-        "name": "Completo", "badge": "Mais escolhido", "proof": "+200 vendas", "price_from": "", "price": "R$ 50,00",
+        "name": "Completo", "badge": "Mais escolhido", "proof": "+200 vendas", "price_from": "", "price": "R$ 35,90",
         "installments": "Iniciante + intermediário",
         "features": ["Todas as videoaulas", "Iniciante e intermediário", "Acesso vitalício", "Atualizações incluídas"],
         "highlight": True, "cta_label": "Quero o Completo",
     },
     {
-        "name": "Premium", "badge": "Presencial", "proof": "+15 alunos hoje treinam na Royal", "price_from": "", "price": "R$ 80,00",
-        "installments": "Completo (R$ 50) + aula presencial (R$ 30)",
+        "name": "Premium", "badge": "Presencial", "proof": "+15 alunos hoje treinam na Royal", "price_from": "", "price": "R$ 65,90",
+        "installments": "Completo (R$ 35,90) + aula presencial (R$ 30)",
         "features": ["Tudo do plano Completo", "1 aula presencial na Royal", "O conteúdo dos vídeos aplicado na areia", "Correção ao vivo com o professor"],
         "highlight": False, "cta_label": "Quero o Premium",
     },

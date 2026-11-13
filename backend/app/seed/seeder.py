@@ -23,7 +23,7 @@ async def seed_all(db: AsyncDatabase, whatsapp_number: str) -> None:
         "brand": "Royal Futevôlei",
         "hero_eyebrow": "Videoaulas de futevôlei · iniciante e intermediário",
         "hero_title": "Domine a bola. Domine a areia.",
-        "hero_subtitle": "Do primeiro toque à cortada, em aulas de 5 a 10 minutos.",
+        "hero_subtitle": "Do primeiro toque ao ataque, em aulas de 5 a 10 minutos.",
         "hero_video_url": "/assets/hero.mp4",
         "hero_image_url": "/assets/hero.jpg",
         "cta_label": "Ver planos",
@@ -35,10 +35,10 @@ async def seed_all(db: AsyncDatabase, whatsapp_number: str) -> None:
             {"value": "5-10", "label": "min por aula"},
             {"value": "Vitalício", "label": "acesso"},
         ],
-        "marquee": ["Toque", "Recepção", "Saque", "Levantada", "Chapa", "Cortada", "Defesa", "Tática 2x2"],
+        "marquee": ["Ataque", "Defesa", "Chapa", "Peito", "Ombro", "Base e postura", "Recepção", "Saque"],
         "teacher_name": "Seu professor na Royal",
         "teacher_role": "Professor de futevôlei",
-        "teacher_bio": "Quem grava as videoaulas é quem ensina na areia. O mesmo método dos treinos presenciais da Royal, passo a passo, do primeiro toque à cortada.",
+        "teacher_bio": "Quem grava as videoaulas é quem ensina na areia. O mesmo método dos treinos presenciais da Royal, passo a passo, do primeiro toque ao ataque.",
         "teacher_photo_url": "/assets/professor.jpg",
     }])
 
