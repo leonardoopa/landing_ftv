@@ -2,13 +2,15 @@ import { useRef, useState } from "react";
 import { useInfiniteLessons } from "../controllers/useInfiniteLessons";
 import { coverFor, LEVELS, LEVEL_LABEL } from "../models/lesson";
 import Icon from "./Icons";
+import PlayDiagram, { playFor } from "./PlayDiagram";
 import Reveal from "./Reveal";
 
-export function Card({ lesson, index }) {
+export function Card({ lesson, index, delay = 0, hidden = false }) {
   const cover = lesson.cover_url ? `url(${lesson.cover_url}) center/cover` : coverFor(lesson.category);
   return (
-    <article className="lesson">
+    <article className="lesson" aria-hidden={hidden || undefined} data-spot>
       <div className="lesson__cover" style={{ background: cover }}>
+        {!lesson.cover_url && <PlayDiagram play={playFor(`${lesson.title} ${lesson.category}`)} delay={delay} />}
         <span className="lesson__n">{String(index + 1).padStart(2, "0")}</span>
         <span className="lesson__play"><Icon name="play" size={18} /></span>
         <span className="lesson__cat">{lesson.category}</span>
@@ -38,7 +40,6 @@ export default function Lessons() {
     <section id="aulas" className="section lessons">
       <Reveal className="lessons__head">
         <div>
-          <p className="eyebrow">O que você vai aprender</p>
           <h2 className="section-title">{total ? `${total} aulas.` : "Aulas."} Direto ao ponto.</h2>
         </div>
         <div className="lessons__tools">
