@@ -11,7 +11,8 @@ const LEVELS = LEVEL_TABS.map((t) => t.value);
 function Lane({ tab, lessons, dir, speed }) {
   const viewRef = useRef(null);
   const trackRef = useRef(null);
-  useMarquee(viewRef, trackRef, { dir, speed });
+  // ready: a faixa só existe depois que as aulas chegam; sem isso o efeito roda com refs nulos e nunca reanexa
+  useMarquee(viewRef, trackRef, { dir, speed, ready: lessons.length > 0 });
   if (!lessons.length) return null;
   // duas cópias: a faixa volta ao início sem emenda
   const loop = [...lessons, ...lessons];
@@ -21,7 +22,7 @@ function Lane({ tab, lessons, dir, speed }) {
         <strong>{tab.label}</strong>
         <span>{lessons.length} aulas · {tab.text}</span>
       </div>
-      <div className="lane__view" ref={viewRef}>
+      <div className="lane__view" data-cursor="arraste" ref={viewRef}>
         <div className="lane__track" ref={trackRef}>
           {loop.map((l, i) => (
             <Card key={`${l.id}-${i}`} lesson={l} index={i % lessons.length} delay={(i % 7) * 0.35} hidden={i >= lessons.length} />

@@ -2,6 +2,7 @@ import { useAnchorScroll } from "./controllers/useAnchorScroll";
 import { useLanding } from "./controllers/useLanding";
 import { useSpotlight } from "./controllers/useSpotlight";
 import { DESK, useMediaQuery } from "./controllers/useMediaQuery";
+import CursorLabel from "./views/CursorLabel";
 import Benefits from "./views/Benefits";
 import Faq from "./views/Faq";
 import Footer from "./views/Footer";
@@ -23,6 +24,7 @@ export default function App() {
   const { data, error } = useLanding();
   // desktop: histórias presas ao scroll; celular/tablet ou "reduzir movimento": seções empilhadas
   const desk = useMediaQuery(DESK);
+  const finePointer = useMediaQuery("(hover: hover) and (pointer: fine)");
   useAnchorScroll();
   useSpotlight();
 
@@ -37,6 +39,7 @@ export default function App() {
       <ScrollProgress />
       <Header site={site} />
       <IntroBall />
+      {finePointer && <CursorLabel />}
       <main>
         <Hero site={site} steps={steps} />
         <Fundamentals items={fundamentals} />

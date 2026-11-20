@@ -370,3 +370,11 @@ input, select, textarea { caret-color: var(--gold); }
   .intro-ball { display: none; }
   .ticker__track, .hero__hint i, .plan__proof i, .wave__drift, .play__ball { animation: none; }
 }
+
+/* ---- rótulo de cursor ---- */
+.cursor-label { position: fixed; left: 0; top: 0; z-index: 102; pointer-events: none; padding: 6px 12px; border-radius: 999px; background: var(--gold); color: #1a1300; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; line-height: 1; white-space: nowrap; opacity: 0; transition: opacity 0.18s ease, scale 0.18s ease; scale: 0.9; will-change: transform; }
+.cursor-label.is-on { opacity: 1; scale: 1; }
+.cursor-label.is-down { scale: 0.92; }
+@media (prefers-reduced-motion: reduce) {
+  .cursor-label { transition: none; }
+}

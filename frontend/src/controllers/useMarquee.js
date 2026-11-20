@@ -2,7 +2,7 @@ import { useEffect } from "react";
 
 // Faixa infinita: anda sozinha, acelera com a velocidade do scroll, pausa no hover e
 // aceita arrastar com inércia. O conteúdo precisa estar duplicado (a volta é metade da largura).
-export function useMarquee(viewRef, trackRef, { dir = -1, speed = 38 } = {}) {
+export function useMarquee(viewRef, trackRef, { dir = -1, speed = 38, ready = true } = {}) {
   useEffect(() => {
     const view = viewRef.current;
     const track = trackRef.current;
@@ -90,5 +90,5 @@ export function useMarquee(viewRef, trackRef, { dir = -1, speed = 38 } = {}) {
       view.removeEventListener("pointerenter", enter);
       view.removeEventListener("pointerleave", leave);
     };
-  }, [viewRef, trackRef, dir, speed]);
+  }, [viewRef, trackRef, dir, speed, ready]);
 }
