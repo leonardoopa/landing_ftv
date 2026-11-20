@@ -409,3 +409,9 @@ input, select, textarea { caret-color: var(--gold); }
 .quiz__msg--ok { color: #11693a; } .quiz__msg--err { color: #b3261e; }
 @media (max-width: 480px) { .quiz__actions .btn { width: 100%; white-space: normal; } }
 @media (prefers-reduced-motion: reduce) { .quiz__bar i, .quiz__opt span { transition: none; } }
+
+/* ---- plano indicado ---- */
+.plan--pick { border-color: var(--blue); box-shadow: 0 0 0 3px var(--blue), 0 26px 70px -28px rgba(37, 99, 255, 0.85); transition: box-shadow 0.3s, border-color 0.3s; }
+.plan--hl.plan--pick { border-color: var(--gold); box-shadow: 0 0 0 3px var(--gold), 0 30px 90px -30px rgba(37, 99, 255, 0.9); }
+.plan__pick { position: absolute; top: -13px; right: 14px; background: var(--blue); color: #fff; font-weight: 700; font-size: 0.66rem; padding: 6px 10px; border-radius: 99px; text-transform: uppercase; letter-spacing: 0.04em; white-space: nowrap; }
+@media (prefers-reduced-motion: reduce) { .plan--pick { transition: none; } }

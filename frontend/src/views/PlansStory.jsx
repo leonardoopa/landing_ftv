@@ -4,7 +4,7 @@ import Letters from "./Letters";
 import { PlanCard } from "./Plans";
 
 // História presa: os planos entram um a um e o destaque cresce; o preço já nasce final.
-export default function PlansStory({ plans }) {
+export default function PlansStory({ plans, recommended }) {
   const ref = useRef(null);
   const key = plans.map((p) => p.id + p.price).join("|");
 
@@ -37,7 +37,9 @@ export default function PlansStory({ plans }) {
           </div>
           <div className="plans__grid">
             {plans.map((p) => (
-              <div key={p.id} className={`plan ${p.highlight ? "plan--hl" : ""}`}><PlanCard plan={p} /></div>
+              <div key={p.id} className={`plan ${p.highlight ? "plan--hl" : ""} ${p.id === recommended ? "plan--pick" : ""}`}>
+                <PlanCard plan={p} pick={p.id === recommended} />
+              </div>
             ))}
           </div>
         </div>

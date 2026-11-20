@@ -2,9 +2,10 @@ import Icon from "./Icons";
 import Reveal from "./Reveal";
 import Letters from "./Letters";
 
-export function PlanCard({ plan: p }) {
+export function PlanCard({ plan: p, pick = false }) {
   return (
     <>
+      {pick && <span className="plan__pick">Indicado para você</span>}
       {p.badge && <span className="plan__badge">{p.badge}</span>}
       <h3>{p.name}</h3>
       <div className="plan__price">
@@ -24,7 +25,7 @@ export function PlanCard({ plan: p }) {
 }
 
 // Versão empilhada (celular / movimento reduzido).
-export default function Plans({ plans }) {
+export default function Plans({ plans, recommended }) {
   return (
     <section id="planos" className="section plans">
       <Reveal className="plans__head">
@@ -33,8 +34,8 @@ export default function Plans({ plans }) {
       </Reveal>
       <div className="plans__grid">
         {plans.map((p, i) => (
-          <Reveal key={p.id} delay={i * 0.08} className={`plan ${p.highlight ? "plan--hl" : ""}`}>
-            <PlanCard plan={p} />
+          <Reveal key={p.id} delay={i * 0.08} className={`plan ${p.highlight ? "plan--hl" : ""} ${p.id === recommended ? "plan--pick" : ""}`}>
+            <PlanCard plan={p} pick={p.id === recommended} />
           </Reveal>
         ))}
       </div>

@@ -38,6 +38,7 @@ function Landing({ data }) {
   const quiz = usePlanQuiz(data.plans);
 
   const { site, steps, fundamentals, benefits, plans, faqs } = data;
+  const recommended = quiz.result?.plan?.id;
   const featured = plans.find((p) => p.highlight) || plans[0];
 
   return (
@@ -58,7 +59,7 @@ function Landing({ data }) {
           {plans.length > 0 && <PlanQuiz quiz={quiz} site={site} />}
           <Wave bottom />
         </div>
-        {desk ? <PlansStory plans={plans} /> : <Plans plans={plans} />}
+        {desk ? <PlansStory plans={plans} recommended={recommended} /> : <Plans plans={plans} recommended={recommended} />}
         <div className="theme-sand"><Faq faqs={faqs} /></div>
       </main>
       <Footer site={site} plan={featured} />
