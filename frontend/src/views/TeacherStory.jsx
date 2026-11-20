@@ -48,7 +48,6 @@ export default function TeacherStory({ site }) {
           </div>
 
           <div className="tstory__copy">
-            <p className="eyebrow tstory__line">Quem ensina</p>
             <h2 className="section-title tstory__line">{site.teacher_name}</h2>
             {site.teacher_role && <p className="teacher__role tstory__line">{site.teacher_role}</p>}
             <p className="section-lead tstory__line">{site.teacher_bio}</p>

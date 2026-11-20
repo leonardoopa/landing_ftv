@@ -24,7 +24,6 @@ export default function Teacher({ site }) {
 
       <div className="teacher__copy">
         <Reveal>
-          <p className="eyebrow">Quem ensina</p>
           <h2 className="section-title"><Letters inView text={site.teacher_name} /></h2>
           {site.teacher_role && <p className="teacher__role">{site.teacher_role}</p>}
           <p className="section-lead">{site.teacher_bio}</p>

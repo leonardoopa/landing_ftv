@@ -41,7 +41,6 @@ img, video { display: block; max-width: 100%; }
 .btn--sm { padding: 10px 18px; font-size: 0.88rem; }
 .link { color: var(--blue-2); text-decoration: underline; }
 
-.scroll-progress { position: fixed; inset: 0 0 auto 0; height: 3px; background: linear-gradient(90deg, var(--blue), var(--blue-2), var(--gold)); transform-origin: 0 50%; z-index: 100; }
 
 /* header */
 .header { position: fixed; inset: 0 0 auto 0; z-index: 90; height: var(--header); display: flex; align-items: center; justify-content: space-between; padding: 0 var(--pad); transition: background 0.3s, border-color 0.3s; border-bottom: 1px solid transparent; }
@@ -117,10 +116,9 @@ img, video { display: block; max-width: 100%; }
 .funds__head { padding: 0 var(--pad); max-width: 1240px; width: 100%; margin: 0 auto; }
 .funds__viewport { padding: 0 var(--pad); }
 .funds__track { display: flex; gap: 18px; width: max-content; will-change: transform; }
-.fund { position: relative; flex: 0 0 clamp(250px, 30vw, 380px); height: clamp(280px, 46vh, 400px); display: flex; flex-direction: column; justify-content: flex-end; padding: 26px; border-radius: 28px; border: 1px solid var(--line); background: linear-gradient(170deg, #12205a, var(--card) 62%); overflow: hidden; }
+.fund { position: relative; isolation: isolate; flex: 0 0 clamp(250px, 30vw, 380px); height: clamp(280px, 46vh, 400px); display: flex; flex-direction: column; justify-content: flex-end; padding: 26px; border-radius: 28px; border: 1px solid var(--line); background: linear-gradient(170deg, #12205a, var(--card) 62%); overflow: hidden; }
 .fund:nth-child(3n + 2) { background: linear-gradient(170deg, #1d3fb8, var(--card) 70%); }
 .fund:nth-child(3n) { background: linear-gradient(170deg, #5a4308, var(--card) 62%); border-color: rgba(245, 197, 66, 0.35); }
-.fund__n { position: absolute; top: 4px; right: 18px; font-family: var(--display); font-size: clamp(6rem, 13vw, 10rem); line-height: 1; color: rgba(255, 255, 255, 0.08); }
 .fund__tag { align-self: flex-start; padding: 4px 12px; border-radius: 99px; border: 1px solid var(--gold); color: var(--gold); font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 12px; }
 .fund h3 { font-family: var(--display); font-weight: 400; text-transform: uppercase; font-size: clamp(2.2rem, 4.4vw, 3.4rem); line-height: 1; margin-bottom: 8px; }
 .fund p { color: #d7def2; max-width: 30ch; }
@@ -158,8 +156,9 @@ img, video { display: block; max-width: 100%; }
 .rail { display: flex; gap: 16px; overflow-x: auto; scroll-snap-type: x proximity; padding: 4px var(--pad) 18px; margin: 0 calc(var(--pad) * -1); scrollbar-width: none; }
 .rail::-webkit-scrollbar { display: none; }
 .lesson { flex: 0 0 248px; scroll-snap-align: start; background: var(--card); border: 1px solid var(--line); border-radius: 20px; overflow: hidden; transition: transform 0.3s, border-color 0.3s; }
+.lesson { position: relative; }
 .lesson:hover { transform: translateY(-6px); border-color: rgba(245, 197, 66, 0.5); }
-.lesson__cover { position: relative; height: 132px; padding: 12px; display: flex; align-items: flex-end; }
+.lesson__cover { position: relative; overflow: hidden; height: 132px; padding: 12px; display: flex; align-items: flex-end; }
 .lesson__n { position: absolute; left: 12px; top: 6px; font-family: var(--display); font-size: 2.6rem; color: rgba(255, 255, 255, 0.28); line-height: 1; }
 .lesson__play { position: absolute; right: 12px; top: 12px; width: 38px; height: 38px; border-radius: 50%; background: rgba(255, 255, 255, 0.94); color: #0b1d5c; display: grid; place-items: center; }
 .lesson__cat { color: #fff; background: rgba(4, 6, 15, 0.6); backdrop-filter: blur(6px); padding: 3px 11px; border-radius: 99px; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; }
@@ -176,21 +175,6 @@ img, video { display: block; max-width: 100%; }
 .lesson--cta span { display: inline-flex; align-items: center; gap: 8px; color: var(--gold); font-weight: 600; }
 .sentinel { flex: 0 0 1px; }
 .notice { margin-top: 14px; color: var(--muted); }
-
-/* aulas: abas presas ao scroll (desktop) */
-.lstory { position: relative; }
-.lstory__stage { position: sticky; top: 0; height: 100vh; height: 100svh; display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); gap: clamp(28px, 5vw, 72px); align-items: center; padding: calc(var(--header) + 20px) var(--pad) 24px; max-width: 1240px; margin: 0 auto; overflow: hidden; }
-.tabs { display: flex; flex-direction: column; gap: 10px; margin: 24px 0; }
-.tab { position: relative; display: flex; flex-direction: column; gap: 4px; width: 100%; text-align: left; padding: 16px 18px 18px; border-radius: 18px; border: 1px solid var(--line); overflow: hidden; opacity: 0.5; transition: opacity 0.3s, background 0.3s, border-color 0.3s; }
-.tab.is-on { opacity: 1; background: var(--card); border-color: var(--text); }
-.tab__top { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
-.tab strong { font-family: var(--display); font-weight: 400; text-transform: uppercase; font-size: 1.6rem; line-height: 1; }
-.tab em { font-style: normal; font-size: 0.8rem; font-weight: 600; color: var(--blue-2); }
-.tab__text { color: var(--muted); font-size: 0.92rem; }
-.tab__fill { position: absolute; left: 0; bottom: 0; width: 100%; height: 4px; background: var(--blue); transform-origin: 0 50%; transform: scaleX(0); }
-.lstory__view { position: relative; height: min(74vh, 660px); overflow: hidden; -webkit-mask-image: linear-gradient(180deg, transparent, #000 6%, #000 92%, transparent); mask-image: linear-gradient(180deg, transparent, #000 6%, #000 92%, transparent); }
-.lstory__col { position: absolute; inset: 0 0 auto 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; padding: 28px 4px 48px; will-change: transform; }
-.lstory__col .lesson:hover { transform: none; }
 
 /* professor: história presa (desktop) */
 .tstory { position: relative; }
@@ -263,7 +247,7 @@ img, video { display: block; max-width: 100%; }
 
 /* footer + barra fixa de compra */
 .footer { border-top: 1px solid var(--line); padding: 28px var(--pad) 96px; }
-.footer__big { font-family: var(--display); text-transform: uppercase; font-size: clamp(3rem, 13.5vw, 12rem); line-height: 1.3; text-align: center; white-space: nowrap; background: linear-gradient(180deg, var(--blue-2), transparent 92%); -webkit-background-clip: text; background-clip: text; color: transparent; margin-bottom: 12px; }
+.footer__big { font-family: var(--display); text-transform: uppercase; font-size: clamp(3rem, 13.5vw, 12rem); line-height: 1.3; text-align: center; white-space: nowrap; color: transparent; -webkit-text-stroke: 1.5px rgba(111, 155, 255, 0.45); margin-bottom: 12px; }
 .footer__row { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; color: var(--muted); font-size: 0.86rem; max-width: 1240px; margin: 0 auto; }
 .footer__row .brand { color: var(--text); font-size: 1.1rem; }
 .footer__row a:hover { color: var(--text); }
@@ -279,6 +263,65 @@ img, video { display: block; max-width: 100%; }
 .splash { min-height: 100vh; display: grid; place-items: center; text-align: center; padding: 24px; color: var(--muted); }
 .loader { width: 44px; height: 44px; border-radius: 50%; border: 3px solid var(--line); border-top-color: var(--gold); animation: spin 0.8s linear infinite; }
 @keyframes spin { to { transform: rotate(360deg); } }
+
+/* ---- bola e rede (progresso) ---- */
+.net { position: fixed; inset: 0 0 auto 0; height: 18px; z-index: 100; pointer-events: none; }
+.net::before { content: ""; position: absolute; inset: 7px 0 auto 0; height: 4px; background: repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.22) 0 2px, transparent 2px 7px); }
+.net__fill { position: absolute; inset: 7px 0 auto 0; height: 3px; background: linear-gradient(90deg, var(--blue), var(--blue-2), var(--gold)); transform-origin: 0 50%; }
+.net__ball { position: absolute; top: 0; width: 18px; height: 18px; margin-left: -9px; filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.45)); }
+.net__ball svg { display: block; will-change: transform; }
+
+/* ---- diagrama de jogada ---- */
+.play { position: absolute; inset: 0; width: 100%; height: 100%; }
+.play__sand { fill: rgba(245, 197, 66, 0.3); }
+.play__net { stroke: rgba(255, 255, 255, 0.65); stroke-width: 1.6; fill: none; stroke-linecap: round; }
+.play__mesh { stroke: rgba(255, 255, 255, 0.3); stroke-width: 1; }
+.play__player { fill: none; stroke: rgba(255, 255, 255, 0.9); stroke-width: 2.4; stroke-linecap: round; }
+.play__player circle { fill: rgba(255, 255, 255, 0.9); stroke: none; }
+.play__path { fill: none; stroke: rgba(255, 255, 255, 0.7); stroke-width: 1.6; stroke-dasharray: 2.5 4.5; stroke-linecap: round; }
+.play__ball { fill: #fff; stroke: var(--gold); stroke-width: 1.4; offset-rotate: 0deg; offset-distance: 0%; }
+@supports not (offset-path: path("M0 0")) { .play__ball { display: none; } }
+.lane .play__ball, .lesson:hover .play__ball, .fund:hover .play__ball { animation: rally 3.2s cubic-bezier(0.4, 0.1, 0.45, 1) infinite; }
+@keyframes rally { 0% { offset-distance: 0%; } 80%, 100% { offset-distance: 100%; } }
+.lesson__n, .lesson__cat, .lesson__play { z-index: 1; }
+.fund__art { position: absolute; z-index: -1; inset: 18px 18px auto; height: 48%; opacity: 0.85; }
+
+/* ---- luz do mouse ---- */
+[data-spot]::after { content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; opacity: 0; transition: opacity 0.3s; background: radial-gradient(260px circle at var(--mx, 50%) var(--my, 50%), rgba(245, 197, 66, 0.16), transparent 62%); }
+[data-spot]:hover::after { opacity: 1; }
+
+/* ---- ondas de areia ---- */
+.has-wave { position: relative; }
+.wave { position: absolute; left: 0; width: 100%; height: 40px; z-index: 3; pointer-events: none; top: -39px; fill: var(--bg); overflow: hidden; }
+.wave--bottom { top: auto; bottom: -39px; transform: scaleY(-1); }
+.wave__drift { animation: drift 14s linear infinite; }
+.wave path { transform-box: fill-box; }
+@keyframes drift { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+/* ---- faixas infinitas de aulas ---- */
+.lanes { padding: clamp(48px, 6vw, 80px) 0 clamp(56px, 7vw, 88px); overflow: hidden; }
+.lanes__head { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; flex-wrap: wrap; padding: 0 var(--pad); max-width: 1240px; margin: 0 auto; }
+.lanes__hint { padding: 10px var(--pad) 22px; max-width: 1240px; margin: 0 auto; color: var(--muted); font-size: 0.92rem; }
+.lane + .lane { margin-top: 22px; }
+.lane__label { display: flex; align-items: baseline; gap: 14px; padding: 0 var(--pad); max-width: 1240px; margin: 0 auto 12px; }
+.lane__label strong { font-family: var(--display); font-weight: 400; text-transform: uppercase; font-size: 1.5rem; letter-spacing: 0.02em; }
+.lane__label span { color: var(--muted); font-size: 0.9rem; }
+.lane__view { overflow: hidden; cursor: grab; touch-action: pan-y; -webkit-mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent); mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent); padding: 10px 0 14px; user-select: none; }
+.lane__view.is-drag { cursor: grabbing; }
+.lane__track { display: flex; gap: 16px; width: max-content; will-change: transform; padding-left: 16px; }
+.lane .lesson { flex: 0 0 288px; }
+.lane .lesson__cover { height: 112px; }
+.lane .lesson__body p { display: none; }
+.lane .lesson { flex-basis: 268px; }
+
+/* ---- superfícies do navegador ---- */
+::selection { background: var(--gold); color: #1a1300; }
+html { scrollbar-color: rgba(154, 166, 196, 0.5) transparent; scrollbar-width: thin; }
+input, select, textarea { caret-color: var(--gold); }
+:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; border-radius: 6px; }
+.theme-sand::before { content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 0; opacity: 0.35; mix-blend-mode: multiply; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .45 0 0 0 0 .32 0 0 0 0 .1 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+.theme-sand > * { position: relative; z-index: 1; }
+.theme-sand > .wave { position: absolute; z-index: 3; }
 
 @media (min-width: 1280px) {
   .hero__card:nth-of-type(3) { right: -30%; }
@@ -320,5 +363,5 @@ img, video { display: block; max-width: 100%; }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .ticker__track, .hero__hint i, .plan__proof i { animation: none; }
+  .ticker__track, .hero__hint i, .plan__proof i, .wave__drift, .play__ball { animation: none; }
 }

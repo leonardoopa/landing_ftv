@@ -13,7 +13,6 @@ export default function HowItWorks() {
   return (
     <section className="section how">
       <Reveal>
-        <p className="eyebrow">Como funciona</p>
         <h2 className="section-title"><Letters inView text="Da compra à areia em 4 passos." /></h2>
       </Reveal>
       <ol className="how__list" ref={ref}>

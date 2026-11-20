@@ -11,7 +11,6 @@ export default function Faq({ faqs }) {
   return (
     <section id="duvidas" className="section closing">
       <Reveal className="closing__faq">
-        <p className="eyebrow">Dúvidas</p>
         <h2 className="section-title"><Letters inView text="Rápido e claro." /></h2>
         <div className="faq__list">
           {faqs.map((f, i) => (

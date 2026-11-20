@@ -28,7 +28,6 @@ export default function Plans({ plans }) {
   return (
     <section id="planos" className="section plans">
       <Reveal className="plans__head">
-        <p className="eyebrow">Planos</p>
         <h2 className="section-title"><Letters inView text="Escolha e comece hoje." /></h2>
         <p className="section-lead">Pagamento único. Acesso vitalício.</p>
       </Reveal>

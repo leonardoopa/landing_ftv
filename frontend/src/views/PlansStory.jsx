@@ -41,7 +41,6 @@ export default function PlansStory({ plans }) {
       <div className="pstory__stage">
         <div className="pstory__inner">
           <div className="plans__head">
-            <p className="eyebrow">Planos</p>
             <h2 className="section-title"><Letters inView text="Escolha e comece hoje." /></h2>
             <p className="section-lead">Pagamento único. Acesso vitalício.</p>
           </div>
