@@ -1,13 +1,5 @@
 // Diagrama de jogada (vista lateral da quadra): rede, areia, jogadores e a trajetória da bola.
-const PLAYS = {
-  serve: { d: "M24 80 C62 -10 150 -10 178 97", players: [24] },
-  dig: { d: "M178 16 C140 30 92 70 46 92 C40 62 50 44 62 34", players: [46, 150] },
-  set: { d: "M42 92 C54 22 104 20 130 58", players: [42, 134] },
-  spike: { d: "M66 24 C112 30 152 66 172 97", players: [66, 168] },
-  juggle: { d: "M100 96 C100 26 100 26 100 96 C100 52 100 52 100 96 C100 72 100 72 100 96", players: [100] },
-  tactic: { d: "M58 78 C76 26 124 26 142 78", players: [58, 142] },
-  base: { d: "M30 98 L66 98 L88 80 L128 80 L150 98 L176 98", players: [30] },
-};
+import { PLAYS } from "../models/plays.js";
 
 // escolhe a jogada pelo texto (título/categoria) da aula ou do fundamento
 export function playFor(text = "") {
@@ -30,16 +22,20 @@ function Player({ x }) {
   );
 }
 
-export default function PlayDiagram({ play = "base", delay = 0 }) {
-  const p = PLAYS[play] || PLAYS.base;
+// `path`/`players` substituem a jogada de `play`; `tone` colore (erro/certo); `once` roda a bola uma vez e reinicia com `runKey`.
+export default function PlayDiagram({ play = "base", delay = 0, path, players, tone, once = false, runKey }) {
+  const base = PLAYS[play] || PLAYS.base;
+  const d = path || base.d;
+  const xs = path ? players || [] : players || base.players;
+  const cls = ["play", tone && `play--${tone}`, once && "play--once"].filter(Boolean).join(" ");
   return (
-    <svg className="play" viewBox="0 0 200 120" preserveAspectRatio="xMidYMax slice" aria-hidden="true" focusable="false">
+    <svg className={cls} viewBox="0 0 200 120" preserveAspectRatio="xMidYMax slice" aria-hidden="true" focusable="false">
       <rect className="play__sand" x="0" y="100" width="200" height="20" />
       <path className="play__net" d="M100 100V56M96 56H104" />
       <path className="play__mesh" d="M100 62H104M100 68H104M100 74H104M100 80H104M100 86H104M100 92H104" />
-      {p.players.map((x) => <Player key={x} x={x} />)}
-      <path className="play__path" d={p.d} />
-      <circle className="play__ball" r="5" style={{ offsetPath: `path("${p.d}")`, animationDelay: `${delay}s` }} />
+      {xs.map((x) => <Player key={x} x={x} />)}
+      <path className="play__path" d={d} />
+      <circle key={runKey} className="play__ball" r="5" style={{ offsetPath: `path("${d}")`, animationDelay: `${delay}s` }} />
     </svg>
   );
 }

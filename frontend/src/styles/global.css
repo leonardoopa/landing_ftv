@@ -415,3 +415,9 @@ input, select, textarea { caret-color: var(--gold); }
 .plan--hl.plan--pick { border-color: var(--gold); box-shadow: 0 0 0 3px var(--gold), 0 30px 90px -30px rgba(37, 99, 255, 0.9); }
 .plan__pick { position: absolute; top: -13px; right: 14px; background: var(--blue); color: #fff; font-weight: 700; font-size: 0.66rem; padding: 6px 10px; border-radius: 99px; text-transform: uppercase; letter-spacing: 0.04em; white-space: nowrap; }
 @media (prefers-reduced-motion: reduce) { .plan--pick { transition: none; } }
+
+/* ---- erro vs. certo (diagrama) ---- */
+.play--erro .play__path { stroke: #ff8a8a; }
+.play--certo .play__path { stroke: var(--gold); }
+.play--once .play__ball { animation: rally 3.2s cubic-bezier(0.4, 0.1, 0.45, 1) 1 forwards; }
+@media (prefers-reduced-motion: reduce) { .play--once .play__ball { animation: none; } }
