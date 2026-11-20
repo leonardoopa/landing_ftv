@@ -56,10 +56,10 @@ class LessonAdmin(OrderableAdmin):
 
 @admin.register(models.Lead)
 class LeadAdmin(admin.ModelAdmin):
-    list_display = ("name", "whatsapp", "email", "level", "created_at")
-    list_filter = ("level",)
+    list_display = ("name", "whatsapp", "email", "level", "plan", "source", "created_at")
+    list_filter = ("level", "plan", "source")
     search_fields = ("name", "whatsapp", "email")
-    readonly_fields = ("name", "whatsapp", "email", "level", "source", "created_at")
+    readonly_fields = ("name", "whatsapp", "email", "level", "plan", "source", "created_at")
 
     def has_add_permission(self, request):
         return False

@@ -159,6 +159,7 @@ class Lead(models.Model):
     whatsapp = models.CharField(max_length=20)
     email = models.CharField(max_length=200, blank=True)
     level = models.CharField("nível", max_length=20)
+    plan = models.CharField("plano", max_length=40, blank=True, default="")
     source = models.CharField("origem", max_length=40, default="landing")
     created_at = models.DateTimeField("criado em")
 
