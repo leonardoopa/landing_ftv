@@ -7,6 +7,7 @@ import Faq from "./views/Faq";
 import Footer from "./views/Footer";
 import Fundamentals from "./views/Fundamentals";
 import Header from "./views/Header";
+import IntroBall from "./views/IntroBall";
 import Hero from "./views/Hero";
 import HowItWorks from "./views/HowItWorks";
 import Lessons from "./views/Lessons";
@@ -35,6 +36,7 @@ export default function App() {
     <>
       <ScrollProgress />
       <Header site={site} />
+      <IntroBall />
       <main>
         <Hero site={site} steps={steps} />
         <Fundamentals items={fundamentals} />

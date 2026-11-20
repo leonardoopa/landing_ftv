@@ -361,7 +361,12 @@ input, select, textarea { caret-color: var(--gold); }
   .benefits { grid-template-columns: 1fr; }
 }
 
+/* ---- entrada com bola ---- */
+.intro-ball { position: fixed; left: 0; top: 0; z-index: 101; pointer-events: none; display: block; line-height: 0; filter: drop-shadow(0 3px 4px rgba(0, 0, 0, 0.45)); will-change: transform, opacity; }
+.intro-ball svg { display: block; }
+
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
+  .intro-ball { display: none; }
   .ticker__track, .hero__hint i, .plan__proof i, .wave__drift, .play__ball { animation: none; }
 }
