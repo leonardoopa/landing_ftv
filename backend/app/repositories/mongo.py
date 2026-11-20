@@ -64,9 +64,15 @@ class MongoLeadRepository(LeadRepository):
         """Idempotente por WhatsApp: repetir o cadastro devolve o id existente."""
         data = lead.model_dump(mode="python")
         data["email"] = str(data["email"]) if data.get("email") else ""
+        data["plan"] = data.get("plan") or ""
+        update: dict = {}
+        if lead.source == "quiz":
+            # quiz refina o lead existente; o Mongo não aceita o mesmo campo em $set e $setOnInsert
+            update["$set"] = {"plan": data.pop("plan"), "level": data.pop("level")}
+        update["$setOnInsert"] = data
         doc = await self._col.find_one_and_update(
             {"whatsapp": data["whatsapp"]},
-            {"$setOnInsert": data},
+            update,
             upsert=True,
             return_document=ReturnDocument.AFTER,
         )

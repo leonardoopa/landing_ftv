@@ -5,6 +5,7 @@ from typing import Literal, Optional
 from pydantic import BaseModel, EmailStr, Field, field_validator
 
 Level = Literal["iniciante", "intermediario"]
+Source = Literal["landing", "quiz"]
 
 
 class LeadCreate(BaseModel):
@@ -12,6 +13,8 @@ class LeadCreate(BaseModel):
     whatsapp: str
     email: Optional[EmailStr] = None
     level: Level = "iniciante"
+    plan: Optional[str] = Field(default=None, max_length=40)
+    source: Source = "landing"
 
     @field_validator("whatsapp")
     @classmethod
@@ -23,5 +26,4 @@ class LeadCreate(BaseModel):
 
 
 class Lead(LeadCreate):
-    source: str = "landing"
     created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
