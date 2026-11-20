@@ -1,5 +1,6 @@
 import { useAnchorScroll } from "./controllers/useAnchorScroll";
 import { useLanding } from "./controllers/useLanding";
+import { usePlanQuiz } from "./controllers/usePlanQuiz";
 import { useSpotlight } from "./controllers/useSpotlight";
 import { DESK, useMediaQuery } from "./controllers/useMediaQuery";
 import CursorLabel from "./views/CursorLabel";
@@ -14,6 +15,7 @@ import HowItWorks from "./views/HowItWorks";
 import Lessons from "./views/Lessons";
 import LessonLanes from "./views/LessonLanes";
 import Wave from "./views/Wave";
+import PlanQuiz from "./views/PlanQuiz";
 import Plans from "./views/Plans";
 import PlansStory from "./views/PlansStory";
 import ScrollProgress from "./views/ScrollProgress";
@@ -22,14 +24,18 @@ import TeacherStory from "./views/TeacherStory";
 
 export default function App() {
   const { data, error } = useLanding();
+  if (error) return <div className="splash">Não foi possível carregar a página. Atualize em instantes.</div>;
+  if (!data) return <div className="splash"><span className="loader" /></div>;
+  return <Landing data={data} />;
+}
+
+function Landing({ data }) {
   // desktop: histórias presas ao scroll; celular/tablet ou "reduzir movimento": seções empilhadas
   const desk = useMediaQuery(DESK);
   const finePointer = useMediaQuery("(hover: hover) and (pointer: fine)");
   useAnchorScroll();
   useSpotlight();
-
-  if (error) return <div className="splash">Não foi possível carregar a página. Atualize em instantes.</div>;
-  if (!data) return <div className="splash"><span className="loader" /></div>;
+  const quiz = usePlanQuiz(data.plans);
 
   const { site, steps, fundamentals, benefits, plans, faqs } = data;
   const featured = plans.find((p) => p.highlight) || plans[0];
@@ -49,6 +55,7 @@ export default function App() {
           <Wave />
           <Benefits benefits={benefits} />
           <HowItWorks />
+          {plans.length > 0 && <PlanQuiz quiz={quiz} site={site} />}
           <Wave bottom />
         </div>
         {desk ? <PlansStory plans={plans} /> : <Plans plans={plans} />}

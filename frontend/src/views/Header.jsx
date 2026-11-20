@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 const LINKS = [
   ["#aulas", "Aulas"],
   ["#professor", "Professor"],
+  ["#nivel", "Seu nível"],
   ["#planos", "Planos"],
   ["#duvidas", "Dúvidas"],
 ];
