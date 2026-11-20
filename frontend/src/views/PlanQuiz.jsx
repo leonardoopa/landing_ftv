@@ -9,18 +9,32 @@ export default function PlanQuiz({ quiz, site }) {
   const headingRef = useRef(null);
   const timer = useRef(null);
   const wasResult = useRef(Boolean(result));
+  const [typed, setTyped] = useState(null); // resposta escolhida pelo teclado, aguardando "Continuar"
 
   useEffect(() => () => clearTimeout(timer.current), []);
+  // qualquer mudança de passo cancela avanço pendente e seleção de teclado
+  useEffect(() => {
+    clearTimeout(timer.current);
+    setTyped(null);
+  }, [step]);
   // foco no título do resultado quando ele aparece (não ao recarregar a página)
   useEffect(() => {
     if (result && !wasResult.current) headingRef.current?.focus();
     wasResult.current = Boolean(result);
   }, [result]);
 
-  const pick = (id, value) => {
+  // clique do mouse/toque avança sozinho; seleção por teclado (detail 0) só marca e espera "Continuar"
+  const pick = (e, id, value) => {
     clearTimeout(timer.current);
+    if (e.detail === 0) {
+      setTyped({ id, value });
+      return;
+    }
+    setTyped(null);
     timer.current = setTimeout(() => answer(id, value), 250);
   };
+  const goBack = () => { clearTimeout(timer.current); back(); };
+  const redo = () => { clearTimeout(timer.current); reset(); };
 
   const q = QUESTIONS[step];
 
@@ -29,7 +43,7 @@ export default function PlanQuiz({ quiz, site }) {
       <p className="eyebrow">Seu nível</p>
       <h2 className="section-title" id="quiz-title">Qual plano combina com você?</h2>
       {result ? (
-        <Result quiz={quiz} result={result} site={site} headingRef={headingRef} onReset={reset} />
+        <Result quiz={quiz} result={result} site={site} headingRef={headingRef} onReset={redo} />
       ) : q ? (
         <div className="quiz__card">
           <div className="quiz__top">
@@ -41,13 +55,14 @@ export default function PlanQuiz({ quiz, site }) {
             <div className="quiz__opts">
               {q.options.map((o) => (
                 <label key={String(o.value)} className="quiz__opt">
-                  <input type="radio" name={q.id} value={String(o.value)} defaultChecked={answers[q.id] === o.value} onClick={() => pick(q.id, o.value)} />
+                  <input type="radio" name={q.id} value={String(o.value)} defaultChecked={answers[q.id] === o.value} onClick={(e) => pick(e, q.id, o.value)} />
                   <span>{o.label}</span>
                 </label>
               ))}
             </div>
           </fieldset>
-          {step > 0 && <button type="button" className="btn btn--ghost btn--sm quiz__back" onClick={back}>Voltar</button>}
+          {typed && <button type="button" className="btn btn--sm" onClick={() => answer(typed.id, typed.value)}>Continuar</button>}
+          {step > 0 && <button type="button" className="btn btn--ghost btn--sm quiz__back" onClick={goBack}>Voltar</button>}
         </div>
       ) : null}
     </section>

@@ -1,15 +1,11 @@
 import { useCallback, useMemo, useState } from "react";
-import { QUESTIONS, QUIZ_KEY, pickPlan, readStored, scoreQuiz, writeStored } from "../models/quiz";
+import { QUESTIONS, QUIZ_KEY, pickPlan, readStored, safeStorage, sanitizeQuizState, scoreQuiz, writeStored } from "../models/quiz";
 
-const store = () => (typeof window === "undefined" ? null : window.sessionStorage);
+const store = () => safeStorage(typeof window === "undefined" ? undefined : window);
 
 function load() {
   const s = store();
-  const saved = s ? readStored(s, QUIZ_KEY) : null;
-  const answers = saved && saved.answers && typeof saved.answers === "object" ? saved.answers : {};
-  const step = Number.isInteger(saved?.step) && saved.step >= 0 && saved.step <= 3 ? saved.step : 0;
-  const complete = QUESTIONS.every((q) => answers[q.id] !== undefined);
-  return { step: step === 3 && !complete ? 0 : step, answers };
+  return sanitizeQuizState(s ? readStored(s, QUIZ_KEY) : null);
 }
 
 // Estado do quiz de nível: passo atual (0-2 perguntas, 3 resultado), respostas e plano indicado.

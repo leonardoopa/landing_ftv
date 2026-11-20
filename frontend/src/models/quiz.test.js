@@ -2,6 +2,8 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import {
   QUIZ_KEY,
+  safeStorage,
+  sanitizeQuizState,
   QUESTIONS,
   scoreQuiz,
   pickPlan,
@@ -112,4 +114,34 @@ test("readStored e writeStored: ida e volta e entradas ruins", () => {
   assert.deepEqual(readStored(mem, "k"), { level: "iniciante" });
   data.k = "{invalido";
   assert.equal(readStored(mem, "k"), null);
+});
+
+test("safeStorage devolve o storage ou null sem lançar", () => {
+  const store = { getItem() {} };
+  assert.equal(safeStorage({ sessionStorage: store }), store);
+  const bloqueado = {};
+  Object.defineProperty(bloqueado, "sessionStorage", {
+    get() {
+      throw new Error("SecurityError");
+    },
+  });
+  assert.equal(safeStorage(bloqueado), null);
+  assert.equal(safeStorage(undefined), null);
+});
+
+test("sanitizeQuizState valida respostas e limita o passo", () => {
+  const full = { experiencia: 1, controle: 2, objetivo: "evoluir" };
+  assert.deepEqual(sanitizeQuizState({ step: 3, answers: full }), { step: 3, answers: full });
+  assert.deepEqual(sanitizeQuizState({ step: 2, answers: {} }), { step: 0, answers: {} });
+  assert.deepEqual(
+    sanitizeQuizState({ step: 3, answers: { experiencia: 9, controle: 1, objetivo: "evoluir" } }),
+    { step: 0, answers: { controle: 1, objetivo: "evoluir" } },
+  );
+  assert.deepEqual(
+    sanitizeQuizState({ step: 3, answers: { experiencia: 0, controle: 1 } }),
+    { step: 2, answers: { experiencia: 0, controle: 1 } },
+  );
+  for (const bad of [null, "x", [], 5, { step: "a", answers: "b" }]) {
+    assert.deepEqual(sanitizeQuizState(bad), { step: 0, answers: {} });
+  }
 });

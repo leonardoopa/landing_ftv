@@ -82,3 +82,27 @@ export function writeStored(storage, key, value) {
     // storage indisponível: ignora
   }
 }
+
+// Ler window.sessionStorage pode lançar (storage bloqueado): devolve null nesses casos.
+export function safeStorage(win) {
+  try {
+    return win?.sessionStorage ?? null;
+  } catch {
+    return null;
+  }
+}
+
+// Valida o estado guardado: só respostas que existem nas opções; passo limitado à 1ª pergunta sem resposta.
+export function sanitizeQuizState(raw) {
+  const empty = { step: 0, answers: {} };
+  if (!raw || typeof raw !== "object" || Array.isArray(raw)) return empty;
+  const source = raw.answers && typeof raw.answers === "object" && !Array.isArray(raw.answers) ? raw.answers : {};
+  const answers = {};
+  for (const q of QUESTIONS) {
+    if (q.options.some((o) => o.value === source[q.id])) answers[q.id] = source[q.id];
+  }
+  const firstOpen = QUESTIONS.findIndex((q) => answers[q.id] === undefined);
+  const limit = firstOpen === -1 ? QUESTIONS.length : firstOpen;
+  const step = Number.isInteger(raw.step) && raw.step > 0 ? Math.min(raw.step, limit) : 0;
+  return { step, answers };
+}
