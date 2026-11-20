@@ -4,6 +4,7 @@ import { usePlanQuiz } from "./controllers/usePlanQuiz";
 import { useSpotlight } from "./controllers/useSpotlight";
 import { DESK, useMediaQuery } from "./controllers/useMediaQuery";
 import CursorLabel from "./views/CursorLabel";
+import ErrorVsRight from "./views/ErrorVsRight";
 import Benefits from "./views/Benefits";
 import Faq from "./views/Faq";
 import Footer from "./views/Footer";
@@ -52,6 +53,7 @@ function Landing({ data }) {
         <Fundamentals items={fundamentals} />
         <div className="theme-sand has-wave"><Wave />{desk ? <LessonLanes /> : <Lessons />}<Wave bottom /></div>
         {desk ? <TeacherStory site={site} /> : <Teacher site={site} />}
+        <ErrorVsRight />
         <div className="theme-sand has-wave">
           <Wave />
           <Benefits benefits={benefits} />

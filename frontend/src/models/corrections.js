@@ -10,7 +10,7 @@ export const CORRECTIONS = [
     reviewed: false,
     erro: {
       text: "Pé duro e perna esticada: a bola quica longe e foge do controle.",
-      path: "M60 88 C90 62 130 60 156 98 C164 86 174 84 184 96",
+      path: "M60 88 C52 56 32 52 20 98 C17 90 14 88 11 96",
       players: [60],
     },
     certo: {
@@ -25,12 +25,12 @@ export const CORRECTIONS = [
     reviewed: false,
     erro: {
       text: "Braços abertos e parado: a bola rebate para fora da quadra.",
-      path: "M46 92 C30 50 10 40 2 70",
+      path: "M46 92 C30 50 14 40 8 72",
       players: [46, 150],
     },
     certo: {
       text: "Base baixa e braços firmes: a bola sobe alta, no meio, para o parceiro.",
-      path: "M46 92 C52 20 120 14 148 78",
+      path: "M46 92 C48 14 70 8 80 44",
       players: [46, 150],
     },
   },
