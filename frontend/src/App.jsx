@@ -1,5 +1,6 @@
 import { useAnchorScroll } from "./controllers/useAnchorScroll";
 import { useLanding } from "./controllers/useLanding";
+import { useSpotlight } from "./controllers/useSpotlight";
 import { DESK, useMediaQuery } from "./controllers/useMediaQuery";
 import Benefits from "./views/Benefits";
 import Faq from "./views/Faq";
@@ -9,7 +10,8 @@ import Header from "./views/Header";
 import Hero from "./views/Hero";
 import HowItWorks from "./views/HowItWorks";
 import Lessons from "./views/Lessons";
-import LessonsStory from "./views/LessonsStory";
+import LessonLanes from "./views/LessonLanes";
+import Wave from "./views/Wave";
 import Plans from "./views/Plans";
 import PlansStory from "./views/PlansStory";
 import ScrollProgress from "./views/ScrollProgress";
@@ -21,6 +23,7 @@ export default function App() {
   // desktop: histórias presas ao scroll; celular/tablet ou "reduzir movimento": seções empilhadas
   const desk = useMediaQuery(DESK);
   useAnchorScroll();
+  useSpotlight();
 
   if (error) return <div className="splash">Não foi possível carregar a página. Atualize em instantes.</div>;
   if (!data) return <div className="splash"><span className="loader" /></div>;
@@ -35,11 +38,13 @@ export default function App() {
       <main>
         <Hero site={site} steps={steps} />
         <Fundamentals items={fundamentals} />
-        <div className="theme-sand">{desk ? <LessonsStory /> : <Lessons />}</div>
+        <div className="theme-sand has-wave"><Wave />{desk ? <LessonLanes /> : <Lessons />}<Wave bottom /></div>
         {desk ? <TeacherStory site={site} /> : <Teacher site={site} />}
-        <div className="theme-sand">
+        <div className="theme-sand has-wave">
+          <Wave />
           <Benefits benefits={benefits} />
           <HowItWorks />
+          <Wave bottom />
         </div>
         {desk ? <PlansStory plans={plans} /> : <Plans plans={plans} />}
         <div className="theme-sand"><Faq faqs={faqs} /></div>
