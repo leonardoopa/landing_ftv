@@ -11,16 +11,18 @@ export default function CursorLabel() {
     let x = -1;
     let y = -1;
     let text = null;
+    let rescanning = false;
     const paint = () => {
       raf = 0;
+      if (rescanning) { rescanning = false; text = labelAt(document.elementFromPoint(x, y)); }
       el.style.transform = `translate3d(${x + 16}px, ${y + 18}px, 0)`;
       if (text) el.textContent = text;
       el.classList.toggle("is-on", Boolean(text));
     };
     const queue = () => { if (!raf) raf = requestAnimationFrame(paint); };
-    const move = (e) => { x = e.clientX; y = e.clientY; text = labelAt(e.target); queue(); };
-    const rescan = () => { if (x < 0) return; text = labelAt(document.elementFromPoint(x, y)); queue(); };
-    const leave = () => { text = null; queue(); };
+    const move = (e) => { x = e.clientX; y = e.clientY; rescanning = false; text = labelAt(e.target); queue(); };
+    const rescan = () => { if (x < 0) return; rescanning = true; queue(); };
+    const leave = () => { x = -1; y = -1; rescanning = false; text = null; queue(); };
     const down = () => el.classList.add("is-down");
     const up = () => el.classList.remove("is-down");
     document.addEventListener("pointermove", move, { passive: true });

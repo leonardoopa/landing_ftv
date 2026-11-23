@@ -60,7 +60,7 @@ export default function IntroBall() {
         { duration: PULSE, easing: "ease-in-out" },
       );
       return fade.finished;
-    }).then(() => { if (!cancelled) setPlay(false); }).catch(() => {});
+    }).then(() => { if (!cancelled) setPlay(false); }).catch((err) => { if (err?.name !== "AbortError") console.error(err); });
 
     return () => {
       cancelled = true;

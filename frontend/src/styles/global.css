@@ -362,7 +362,7 @@ input, select, textarea { caret-color: var(--gold); }
 }
 
 /* ---- entrada com bola ---- */
-.intro-ball { position: fixed; left: 0; top: 0; z-index: 101; pointer-events: none; display: block; line-height: 0; filter: drop-shadow(0 3px 4px rgba(0, 0, 0, 0.45)); will-change: transform, opacity; }
+.intro-ball { opacity: 0; position: fixed; left: 0; top: 0; z-index: 101; pointer-events: none; display: block; line-height: 0; filter: drop-shadow(0 3px 4px rgba(0, 0, 0, 0.45)); will-change: transform, opacity; }
 .intro-ball svg { display: block; }
 
 @media (prefers-reduced-motion: reduce) {

@@ -34,6 +34,7 @@ function Landing({ data }) {
   // desktop: histórias presas ao scroll; celular/tablet ou "reduzir movimento": seções empilhadas
   const desk = useMediaQuery(DESK);
   const finePointer = useMediaQuery("(hover: hover) and (pointer: fine)");
+  const motionOk = useMediaQuery("(prefers-reduced-motion: no-preference)");
   useAnchorScroll();
   useSpotlight();
   const quiz = usePlanQuiz(data.plans);
@@ -47,7 +48,7 @@ function Landing({ data }) {
       <ScrollProgress />
       <Header site={site} />
       <IntroBall />
-      {finePointer && <CursorLabel />}
+      {finePointer && motionOk && <CursorLabel />}
       <main>
         <Hero site={site} steps={steps} />
         <Fundamentals items={fundamentals} />

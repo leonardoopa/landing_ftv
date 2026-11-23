@@ -1,6 +1,9 @@
 services:
   app:
-    build: .
+    build:
+      context: .
+      args:
+        VITE_SHOW_DRAFTS: ${VITE_SHOW_DRAFTS:-true}
     env_file: .env
     ports:
       - "${APP_PORT:-8000}:8000"

@@ -43,7 +43,7 @@ const PLAN_POSITION = { essencial: 0, completo: 1, premium: 2 };
 export function pickPlan(plans, planKey) {
   if (!Array.isArray(plans) || plans.length === 0) return null;
   const byName = plans.find((p) => String(p.name).toLowerCase() === planKey);
-  return byName || plans[PLAN_POSITION[planKey]] || null;
+  return byName || plans[Math.min(PLAN_POSITION[planKey] ?? 0, plans.length - 1)];
 }
 
 export function buildWhatsAppUrl({ whatsapp, level, plan }) {

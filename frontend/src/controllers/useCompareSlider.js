@@ -29,7 +29,10 @@ export function useCompareSlider({ onRelease } = {}) {
     cancelAnimationFrame(raf.current);
     raf.current = 0;
   };
-  useEffect(() => stopSweep, []);
+  useEffect(() => {
+    swept.current = false; // remontagem (StrictMode): a varredura volta a valer
+    return stopSweep;
+  }, []);
 
   const sweep = useCallback(() => {
     if (swept.current) return;

@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 import { CORRECTIONS, SHOW_DRAFTS, visibleCorrections, clampCut, stepCut } from "./corrections.js";
 
 test("CORRECTIONS: ids, textos, trajetórias e jogadores", () => {
-  assert.equal(SHOW_DRAFTS, true);
+  assert.equal(typeof SHOW_DRAFTS, "boolean");
   assert.deepEqual(CORRECTIONS.map((c) => c.id), ["toque", "defesa", "saque", "ataque"]);
   for (const c of CORRECTIONS) {
     assert.equal(c.reviewed, false);

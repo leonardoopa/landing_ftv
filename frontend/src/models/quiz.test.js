@@ -50,6 +50,10 @@ test("pickPlan", () => {
   assert.equal(pickPlan(swapped, "premium").id, 3);
   assert.equal(pickPlan(plans, "premium").id, 3);
   assert.equal(pickPlan([], "completo"), null);
+  assert.equal(pickPlan(null, "completo"), null);
+  assert.equal(pickPlan([{ id: 1, name: "A" }], "premium").id, 1);
+  assert.equal(pickPlan([{ id: 1, name: "A" }, { id: 2, name: "B" }], "premium").id, 2);
+  assert.equal(pickPlan([{ id: 1, name: "Premium" }, { id: 2, name: "B" }, { id: 3, name: "C" }], "premium").id, 1);
 });
 
 test("buildWhatsAppUrl", () => {

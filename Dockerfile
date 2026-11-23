@@ -4,6 +4,8 @@ WORKDIR /web
 COPY frontend/package.json frontend/package-lock.json ./
 RUN npm ci --no-audit --no-fund
 COPY frontend/ ./
+ARG VITE_SHOW_DRAFTS=true
+ENV VITE_SHOW_DRAFTS=$VITE_SHOW_DRAFTS
 RUN npm run build
 
 # ---------- Stage 2: FastAPI + Django ----------

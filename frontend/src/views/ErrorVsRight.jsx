@@ -33,7 +33,7 @@ export default function ErrorVsRight() {
       io.disconnect();
       replay();
       sweep();
-    }, { threshold: 0.55 });
+    }, { threshold: 0.3 });
     io.observe(el);
     return () => io.disconnect();
   }, [replay, sweep]);

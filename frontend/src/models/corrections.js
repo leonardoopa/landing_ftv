@@ -1,7 +1,7 @@
 import { PLAYS } from "./plays.js";
 
 // Rascunhos ainda não revisados pelo professor: visíveis enquanto SHOW_DRAFTS for true.
-export const SHOW_DRAFTS = true;
+export const SHOW_DRAFTS = import.meta.env?.VITE_SHOW_DRAFTS !== "false";
 
 export const CORRECTIONS = [
   {
@@ -10,13 +10,13 @@ export const CORRECTIONS = [
     reviewed: false,
     erro: {
       text: "Pé duro e perna esticada: a bola quica longe e foge do controle.",
-      path: "M60 88 C52 56 32 52 20 98 C17 90 14 88 11 96",
-      players: [60],
+      path: "M100 88 C90 50 52 42 30 98 C27 90 24 88 21 96",
+      players: [100],
     },
     certo: {
       text: "Perna relaxada e joelho flexionado: a bola amortece e sobe perto do corpo.",
-      path: "M60 88 C58 56 66 44 72 42",
-      players: [60],
+      path: "M100 88 C104 56 118 44 134 40",
+      players: [100],
     },
   },
   {
@@ -30,7 +30,7 @@ export const CORRECTIONS = [
     },
     certo: {
       text: "Base baixa e braços firmes: a bola sobe alta, no meio, para o parceiro.",
-      path: "M46 92 C48 14 70 8 80 44",
+      path: "M46 92 C60 6 124 6 150 60",
       players: [46, 150],
     },
   },
@@ -54,7 +54,7 @@ export const CORRECTIONS = [
     title: "Ataque",
     reviewed: false,
     erro: {
-      text: "Contato sem salto nem tempo: a bola vai lenta e fácil de defender.",
+      text: "Contato sem salto nem tempo: a bola morre na rede.",
       path: "M66 24 C80 34 92 46 100 62",
       players: PLAYS.spike.players,
     },
